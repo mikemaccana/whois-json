@@ -1,0 +1,127 @@
+{
+  "name": "whois-json",
+  "version": "1.0.0",
+  "dependencies": {
+    "change-case": {
+      "version": "2.3.0",
+      "from": "https://registry.npmjs.org/change-case/-/change-case-2.3.0.tgz",
+      "resolved": "https://registry.npmjs.org/change-case/-/change-case-2.3.0.tgz",
+      "dependencies": {
+        "camel-case": {
+          "version": "1.1.1",
+          "from": "camel-case@>=1.1.1 <2.0.0",
+          "resolved": "https://registry.npmjs.org/camel-case/-/camel-case-1.1.1.tgz"
+        },
+        "constant-case": {
+          "version": "1.1.0",
+          "from": "constant-case@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/constant-case/-/constant-case-1.1.0.tgz"
+        },
+        "dot-case": {
+          "version": "1.1.1",
+          "from": "dot-case@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/dot-case/-/dot-case-1.1.1.tgz"
+        },
+        "is-lower-case": {
+          "version": "1.1.1",
+          "from": "is-lower-case@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/is-lower-case/-/is-lower-case-1.1.1.tgz"
+        },
+        "is-upper-case": {
+          "version": "1.1.1",
+          "from": "is-upper-case@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/is-upper-case/-/is-upper-case-1.1.1.tgz"
+        },
+        "lower-case": {
+          "version": "1.1.2",
+          "from": "lower-case@>=1.1.1 <2.0.0",
+          "resolved": "https://registry.npmjs.org/lower-case/-/lower-case-1.1.2.tgz"
+        },
+        "lower-case-first": {
+          "version": "1.0.0",
+          "from": "lower-case-first@>=1.0.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/lower-case-first/-/lower-case-first-1.0.0.tgz"
+        },
+        "param-case": {
+          "version": "1.1.1",
+          "from": "param-case@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/param-case/-/param-case-1.1.1.tgz"
+        },
+        "pascal-case": {
+          "version": "1.1.0",
+          "from": "pascal-case@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/pascal-case/-/pascal-case-1.1.0.tgz"
+        },
+        "path-case": {
+          "version": "1.1.1",
+          "from": "path-case@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/path-case/-/path-case-1.1.1.tgz"
+        },
+        "sentence-case": {
+          "version": "1.1.2",
+          "from": "sentence-case@>=1.1.1 <2.0.0",
+          "resolved": "https://registry.npmjs.org/sentence-case/-/sentence-case-1.1.2.tgz"
+        },
+        "snake-case": {
+          "version": "1.1.1",
+          "from": "snake-case@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/snake-case/-/snake-case-1.1.1.tgz"
+        },
+        "swap-case": {
+          "version": "1.1.0",
+          "from": "swap-case@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/swap-case/-/swap-case-1.1.0.tgz"
+        },
+        "title-case": {
+          "version": "1.1.0",
+          "from": "title-case@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/title-case/-/title-case-1.1.0.tgz"
+        },
+        "upper-case": {
+          "version": "1.1.2",
+          "from": "upper-case@>=1.1.1 <2.0.0",
+          "resolved": "https://registry.npmjs.org/upper-case/-/upper-case-1.1.2.tgz"
+        },
+        "upper-case-first": {
+          "version": "1.1.1",
+          "from": "upper-case-first@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/upper-case-first/-/upper-case-first-1.1.1.tgz"
+        }
+      }
+    },
+    "es6-shim": {
+      "version": "0.27.1",
+      "from": "https://registry.npmjs.org/es6-shim/-/es6-shim-0.27.1.tgz",
+      "resolved": "https://registry.npmjs.org/es6-shim/-/es6-shim-0.27.1.tgz"
+    },
+    "node-whois": {
+      "version": "2.1.0",
+      "from": "node-whois@*",
+      "resolved": "https://registry.npmjs.org/node-whois/-/node-whois-2.1.0.tgz",
+      "dependencies": {
+        "optimist": {
+          "version": "0.6.1",
+          "from": "optimist@>=0.6.1 <0.7.0",
+          "resolved": "https://registry.npmjs.org/optimist/-/optimist-0.6.1.tgz",
+          "dependencies": {
+            "wordwrap": {
+              "version": "0.0.2",
+              "from": "wordwrap@>=0.0.2 <0.1.0",
+              "resolved": "https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.2.tgz"
+            },
+            "minimist": {
+              "version": "0.0.10",
+              "from": "minimist@>=0.0.1 <0.1.0",
+              "resolved": "https://registry.npmjs.org/minimist/-/minimist-0.0.10.tgz"
+            }
+          }
+        },
+        "underscore": {
+          "version": "1.5.2",
+          "from": "underscore@>=1.5.2 <1.6.0",
+          "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.5.2.tgz"
+        }
+      }
+    }
+  }
+}

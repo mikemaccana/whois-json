@@ -1,0 +1,16 @@
+{
+  "name": "whois-json",
+  "version": "1.0.0",
+  "description": "whois, with JSON results",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Mike MacCana <mike.maccana@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "change-case": "https://registry.npmjs.org/change-case/-/change-case-2.3.0.tgz",
+    "es6-shim": "https://registry.npmjs.org/es6-shim/-/es6-shim-0.27.1.tgz",
+    "node-whois": "^2.1.0"
+  }
+}
