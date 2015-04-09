@@ -1,7 +1,7 @@
 {
   "name": "whois-json",
-  "version": "1.0.0",
-  "description": "whois, with JSON results",
+  "version": "1.0.1",
+  "description": "whois, with actual JavaScript (not flat string) results!",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
