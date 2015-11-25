@@ -62,3 +62,12 @@ Returns the following results:
       "urlOfTheIcannWhoisDataProblemReportingSystem": "http://wdprs.internic.net/",
       "lastUpdateOfWhoisDatabase": "2015-04-09T03:41:53-0700 <<<"
     }
+
+To pass options to node-whois, use:
+
+    var whois = require('./index.js');
+
+    whois('google.com', {follow: 3, verbose: true}, function(err, result){
+        console.log(JSON.stringify(result, null, 2))
+    })
+
