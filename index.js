@@ -28,7 +28,7 @@ function parseRawData(rawData) {
     return result;
 }
 
-module.exports = function(domain, options, cb){
+module.exports = function(domain, options, cb, filterData){
 
     if ( typeof cb === 'undefined' && typeof options === 'function' ) {
         cb = options;
@@ -40,7 +40,9 @@ module.exports = function(domain, options, cb){
         if ( err ) {
             return cb(err, null);
         }
-
+		if( typeof filterData === 'function' ) {
+			rawData = filterData(rawData);
+		}
         var result = {};
 
         if ( typeof rawData == 'object' ) {
