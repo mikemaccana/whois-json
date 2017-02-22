@@ -1,0 +1,3 @@
+--ui tdd
+--bail
+--slow 10000
