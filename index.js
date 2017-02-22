@@ -1,10 +1,7 @@
-var whois = require('node-whois');
-var changeCase = require('change-case');
-var os = require('os');
-
-require('es6-shim')
-
-var log = console.log.bind(console);
+var whois = require('node-whois'),
+	changeCase = require('change-case'),
+	os = require('os'),
+	log = console.log.bind(console);
 
 function parseRawData(rawData) {
 	var result = {};
