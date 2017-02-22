@@ -18,8 +18,11 @@ function parseRawData(rawData) {
 			// 'Greater than' since lines often have more than one colon, eg values with URLs
 			if ( lineParts.length >= 2 ) {
 				var keyName = changeCase.camelCase(lineParts[0]);
-				if ( !(keyName in result) )
+
+				// Multiple lines may use the same key - combine them.
+				if ( ! ( keyName in result ) ) {
 				  result[keyName] = [];
+				}
 				result[keyName].push(lineParts.splice(1).join(':').trim());
 			}
 		}
