@@ -61,11 +61,14 @@ Returns the following results. Note duplicate keys in whois results (like `nameS
 		"lastUpdateOfWhoisDatabase": "2017-02-22T03:53:14-0800 <<<"
 	};
 
-To pass options to `node-whois`, use:
+To pass options to the underlying `node-whois` module, use:
 
-		var whois = require('./index.js');
+	var whois = require('./index.js');
 
-		whois('google.com', {follow: 3, verbose: true}, function(err, result){
-			console.log(JSON.stringify(result, null, 2))
-		})
+	whois('google.com', {follow: 3, verbose: true}, function(err, result){
+		console.log(JSON.stringify(result, null, 2))
+	})
 
+# Send pull requests
+
+Issues are cool, but PRs are better. Don't break the tests.
