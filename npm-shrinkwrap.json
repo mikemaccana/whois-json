@@ -89,11 +89,6 @@
         }
       }
     },
-    "es6-shim": {
-      "version": "0.27.1",
-      "from": "https://registry.npmjs.org/es6-shim/-/es6-shim-0.27.1.tgz",
-      "resolved": "https://registry.npmjs.org/es6-shim/-/es6-shim-0.27.1.tgz"
-    },
     "node-whois": {
       "version": "2.1.0",
       "from": "node-whois@*",
@@ -104,15 +99,15 @@
           "from": "optimist@>=0.6.1 <0.7.0",
           "resolved": "https://registry.npmjs.org/optimist/-/optimist-0.6.1.tgz",
           "dependencies": {
-            "wordwrap": {
-              "version": "0.0.2",
-              "from": "wordwrap@>=0.0.2 <0.1.0",
-              "resolved": "https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.2.tgz"
-            },
             "minimist": {
               "version": "0.0.10",
               "from": "minimist@>=0.0.1 <0.1.0",
               "resolved": "https://registry.npmjs.org/minimist/-/minimist-0.0.10.tgz"
+            },
+            "wordwrap": {
+              "version": "0.0.2",
+              "from": "wordwrap@>=0.0.2 <0.1.0",
+              "resolved": "https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.2.tgz"
             }
           }
         },

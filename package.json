@@ -8,9 +8,9 @@
   },
   "author": "Mike MacCana <mike.maccana@gmail.com>",
   "license": "MIT",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/mikemaccana/whois-json.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikemaccana/whois-json.git"
   },
   "dependencies": {
     "change-case": "https://registry.npmjs.org/change-case/-/change-case-2.3.0.tgz",
