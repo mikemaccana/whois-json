@@ -43,7 +43,7 @@ module.exports = function(domain, options, cb){
 
 		var result = {};
 
-		if ( typeof rawData == 'object' ) {
+		if ( typeof rawData === 'object' ) {
 			result = rawData.map(function(data) {
 				data.data = parseRawData(data.data);
 				return data;
