@@ -1,0 +1,9 @@
+machine:
+  node:
+    # See https://circleci.com/docs/build-image-trusty/#nodejs
+    version: 6.1.0
+
+general:
+  branches:
+    only:
+      - master # list of branches to build
