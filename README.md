@@ -1,6 +1,8 @@
 A wrapper for the excellent `node-whois`, that returns results in actual, structured, camelCase-keyed JavaScript.
 
-# Usage
+[![CircleCI](https://circleci.com/gh/mikemaccana/whois-json.svg?style=shield)](https://circleci.com/gh/mikemaccana/whois-json)
+
+# Demo
 
 	var whois = require('./index.js');
 
