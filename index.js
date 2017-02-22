@@ -15,7 +15,7 @@ function parseRawData(rawData) {
 		if ( line && line.includes(': ') ) {
 			var lineParts = line.split(':');
 
-			// greater than since lines often have more than one colon, eg values with URLS
+			// 'Greater than' since lines often have more than one colon, eg values with URLs
 			if ( lineParts.length >= 2 ) {
 				var keyName = changeCase.camelCase(lineParts[0]);
 				if ( !(keyName in result) )
