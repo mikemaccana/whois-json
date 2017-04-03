@@ -1,6 +1,6 @@
 var whois = require('node-whois'),
 	log = console.log.bind(console),
-	parseRawData = require('parse-raw-data.js')
+	parseRawData = require('./parse-raw-data.js')
 
 module.exports = function(domain, options, cb){
 
