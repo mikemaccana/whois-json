@@ -15,7 +15,7 @@
   "dependencies": {
     "change-case": "^2.3.0",
     "html-entities": "^1.2.1",
-    "whois": "^2.1.0"
+    "whois": "^2.5.10"
   },
   "devDependencies": {
     "mocha": "^3.2.0"

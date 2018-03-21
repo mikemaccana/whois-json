@@ -1,4 +1,4 @@
-var whois = require('node-whois'),
+var whois = require('whois'),
 	log = console.log.bind(console),
 	parseRawData = require('./parse-raw-data.js')
 
