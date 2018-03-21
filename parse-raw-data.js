@@ -10,7 +10,7 @@ function parseRawData(rawData) {
 	lines.forEach(function(line){
 
 		line = line.trim();
-		if ( line && line.includes(': ') ) {
+		if ( line && line.includes(':') ) {
 			var lineParts = line.split(':');
 
 			// 'Greater than' since lines often have more than one colon, eg values with URLs
