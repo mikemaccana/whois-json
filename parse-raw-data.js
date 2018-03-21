@@ -1,12 +1,18 @@
 var os = require('os'),
 	log = console.log.bind(console),
-	changeCase = require('change-case');
+	changeCase = require('change-case'),
+	htmlEntities = require('html-entities').XmlEntities;
 
 function parseRawData(rawData) {
 
 	var result = {};
+	
+	// Parse HTML Entities
+	let entities = new htmlEntities();
+	
+	rawData = entities.decode(rawData);
 	var lines = rawData.split('\n');
-
+	
 	lines.forEach(function(line){
 
 		line = line.trim();
