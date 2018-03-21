@@ -5,12 +5,14 @@ var os = require('os'),
 
 function parseRawData(rawData) {
 
-	var result = {};
+	var result = {};	
 	
 	// Parse HTML Entities
 	let entities = new htmlEntities();
-	
 	rawData = entities.decode(rawData);
+	
+	// 	Handle .co.uk edge case where newline follows key (e.g. Registrant: \r\n google \r\n\r\n)
+	rawData = rawData.replace(/:\s*\r\n/g, ': ');
 	var lines = rawData.split('\n');
 	
 	lines.forEach(function(line){
