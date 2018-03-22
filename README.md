@@ -1,4 +1,4 @@
-A wrapper for the excellent `node-whois`, that returns results in actual, structured, camelCase-keyed JavaScript.
+A wrapper for the excellent [`whois` module](https://www.npmjs.com/package/whois), that returns results in actual, structured, camelCase-keyed JavaScript!
 
 [![CircleCI](https://circleci.com/gh/mikemaccana/whois-json.svg?style=shield)](https://circleci.com/gh/mikemaccana/whois-json)
 
