@@ -1,16 +1,24 @@
 var os = require('os'),
 	log = console.log.bind(console),
-	changeCase = require('change-case');
+	changeCase = require('change-case'),
+	htmlEntities = require('html-entities').XmlEntities;
 
 function parseRawData(rawData) {
 
-	var result = {};
+	var result = {};	
+	
+	// Parse HTML Entities
+	let entities = new htmlEntities();
+	rawData = entities.decode(rawData);
+	
+	// Handle .co.uk edge case where newline follows key (e.g. Registrant: \r\n google \r\n\r\n)
+	rawData = rawData.replace(/:\s*\r\n/g, ': ');
 	var lines = rawData.split('\n');
-
+	
 	lines.forEach(function(line){
-
+	
 		line = line.trim();
-		if ( line && line.includes(': ') ) {
+		if ( line && line.includes(':') ) {
 			var lineParts = line.split(':');
 
 			// 'Greater than' since lines often have more than one colon, eg values with URLs
