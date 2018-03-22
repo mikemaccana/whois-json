@@ -18,7 +18,8 @@ function parseRawData(rawData) {
 	lines.forEach(function(line){
 	
 		line = line.trim();
-		if ( line && line.includes(':') ) {
+		// colon space because that's the standard delimiter - not ':' as that's used in eg, http links
+		if ( line && line.includes(': ') ) {
 			var lineParts = line.split(':');
 
 			// 'Greater than' since lines often have more than one colon, eg values with URLs
