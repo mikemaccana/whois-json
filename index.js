@@ -1,33 +1,26 @@
-var whois = require('whois'),
+var util = require('util'),
+	whois = require('whois')
 	log = console.log.bind(console),
 	parseRawData = require('./parse-raw-data.js')
 
-module.exports = function(domain, options, cb){
+var lookup = util.promisify(whois.lookup);
 
-	if ( typeof cb === 'undefined' && typeof options === 'function' ) {
-		cb = options;
-		options = {};
+module.exports = async function(domain, options){
+
+	var rawData = await lookup(domain, options || {})	
+
+	var result = {};
+
+	if ( typeof rawData === 'object' ) {
+		result = rawData.map(function(data) {
+			data.data = parseRawData(data.data);
+			return data;
+		});
+	} else {
+		result = parseRawData(rawData);
 	}
 
-	whois.lookup(domain, options, function(err, rawData) {
-
-		if ( err ) {
-			return cb(err, null);
-		}
-
-		var result = {};
-
-		if ( typeof rawData === 'object' ) {
-			result = rawData.map(function(data) {
-				data.data = parseRawData(data.data);
-				return data;
-			});
-		} else {
-			result = parseRawData(rawData);
-		}
-
-		cb(null, result);
-	});
+	return result;
 }
 
 
