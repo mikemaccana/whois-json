@@ -1,6 +1,6 @@
 A wrapper for the excellent [`whois` module](https://www.npmjs.com/package/whois), that returns results in actual, structured, camelCase-keyed JavaScript!
 
-[![CircleCI](https://circleci.com/gh/mikemaccana/whois-json.svg?style=shield)](https://circleci.com/gh/mikemaccana/whois-json)
+[![Build Status](https://travis-ci.org/mikemaccana/whois-json.svg?branch=master)](https://travis-ci.org/mikemaccana/whois-json)
 
 # Changes in version 2
 
