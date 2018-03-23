@@ -1,4 +1,4 @@
-A wrapper for the excellent [`whois` module](https://www.npmjs.com/package/whois), that returns results in actual, structured, camelCase-keyed JavaScript!
+A wrapper for the excellent [`whois` module](https://www.npmjs.com/package/whois), that returns results in actual, structured, camelCased JavaScript!
 
 [![Build Status](https://travis-ci.org/mikemaccana/whois-json.svg?branch=master)](https://travis-ci.org/mikemaccana/whois-json)
 
@@ -78,4 +78,6 @@ Returns the following results. Note duplicate keys in whois results (like `nameS
 
 # Send pull requests
 
-Issues are cool, but PRs are better. Don't break the tests.
+Issues are cool, but PRs are better. 
+
+If you add features, add tests. Don't break the tests.
