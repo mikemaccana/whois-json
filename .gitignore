@@ -1,8 +1,5 @@
 # compiled javascript
-dist
-
-# yarn
-yarn.lock
+directories
 
 # Logs
 logs

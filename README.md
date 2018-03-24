@@ -1,14 +1,29 @@
-A wrapper for the excellent `node-whois`, that returns results in actual, structured, camelCase-keyed JavaScript.
+A wrapper for the excellent [`whois` module](https://www.npmjs.com/package/whois), that returns results in actual, structured, camelCased JavaScript!
 
-[![CircleCI](https://circleci.com/gh/mikemaccana/whois-json.svg?style=shield)](https://circleci.com/gh/mikemaccana/whois-json)
+[![Build Status](https://travis-ci.org/mikemaccana/whois-json.svg?branch=master)](https://travis-ci.org/mikemaccana/whois-json)
+
+# Changes in version 2
+
+Callbacks are no longer supported by this module - the module returns Promises and should be used with `await`.
 
 # Demo
 
-	var whois = require('./index.js');
+	(async function(){
+		const whois = require('./index.js');
 
-	whois('google.com', function(err, result){
+		var results = await whois('google.com')
 		console.log(JSON.stringify(result, null, 2))
-	})
+	})()
+
+Or to specify some options to the underlying [`whois` module](https://www.npmjs.com/package/whois), use:
+
+	(async function(){
+		const whois = require('./index.js');
+
+		var results = await whois('google.com', {follow: 3, verbose: true})
+		console.log(JSON.stringify(result, null, 2))
+	})()
+
 
 Returns the following results. Note duplicate keys in whois results (like `nameServer`) are combined into a single result, seperated by space:
 
@@ -61,14 +76,8 @@ Returns the following results. Note duplicate keys in whois results (like `nameS
 		"lastUpdateOfWhoisDatabase": "2017-02-22T03:53:14-0800 <<<"
 	};
 
-To pass options to the underlying `node-whois` module, use:
-
-	var whois = require('./index.js');
-
-	whois('google.com', {follow: 3, verbose: true}, function(err, result){
-		console.log(JSON.stringify(result, null, 2))
-	})
-
 # Send pull requests
 
-Issues are cool, but PRs are better. Don't break the tests.
+Issues are cool, but PRs are better. 
+
+If you add features, add tests. Don't break the tests.

@@ -1,30 +1,33 @@
-var os = require('os'),
+const os = require('os'),
 	log = console.log.bind(console),
 	changeCase = require('change-case'),
 	htmlEntities = require('html-entities').XmlEntities;
 
-function parseRawData(rawData) {
+const DELIMITER = ':';
 
+var stripHTMLEntitites = function(rawData){
+	var entities = new htmlEntities();
+	return entities.decode(rawData);
+}
+
+var parseRawData = function(rawData) {
+	
 	var result = {};	
 	
-	// Parse HTML Entities
-	let entities = new htmlEntities();
-	rawData = entities.decode(rawData);
-	
-	// Handle .co.uk edge case where newline follows key (e.g. Registrant: \r\n google \r\n\r\n)
+	rawData = stripHTMLEntitites(rawData)
 	rawData = rawData.replace(/:\s*\r\n/g, ': ');
 	var lines = rawData.split('\n');
 	
 	lines.forEach(function(line){
 	
 		line = line.trim();
-		if ( line && line.includes(':') ) {
-			var lineParts = line.split(':');
+		if ( line && line.includes(DELIMITER+' ') ) {
+			var lineParts = line.split(DELIMITER);
 
 			// 'Greater than' since lines often have more than one colon, eg values with URLs
 			if ( lineParts.length >= 2 ) {
 				var key = changeCase.camelCase(lineParts[0]),
-					value = lineParts.splice(1).join(':').trim()
+					value = lineParts.splice(1).join(DELIMITER).trim()
 
 				// If multiple lines use the same key, combine the values
 				if ( key in result ) {
