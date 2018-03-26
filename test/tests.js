@@ -169,7 +169,8 @@ suite('parseRawData', function(){
 
 	test('Geektools output with indented values and HTML entities', async function(){
 		this.timeout(3 * 1000)
-	 	const actual = await lookup('google.co.uk', {server:'geektools.com'})
-	 	assert.equal(actual.registrant, 'Google Inc.')
+		const actual = await lookup('google.co.uk', {server:'geektools.com'})
+		log(print(actual))
+		assert.equal(actual.registrant, 'Google Inc.')
 	})	
 })
