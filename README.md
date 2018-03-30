@@ -9,19 +9,19 @@ Callbacks are no longer supported by this module - the module returns Promises a
 # Demo
 
 	(async function(){
-		const whois = require('./index.js');
+		const whois = require('whois-json');
 
-		var results = await whois('google.com')
-		console.log(JSON.stringify(result, null, 2))
+		var results = await whois('google.com');
+		console.log(JSON.stringify(results, null, 2));
 	})()
 
 Or to specify some options to the underlying [`whois` module](https://www.npmjs.com/package/whois), use:
 
 	(async function(){
-		const whois = require('./index.js');
+		const whois = require('whois-json');
 
-		var results = await whois('google.com', {follow: 3, verbose: true})
-		console.log(JSON.stringify(result, null, 2))
+		var results = await whois('google.com', {follow: 3, verbose: true});
+		console.log(JSON.stringify(results, null, 2));
 	})()
 
 
