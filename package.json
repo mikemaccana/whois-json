@@ -14,8 +14,11 @@
   },
   "dependencies": {
     "change-case": "^2.3.0",
+    "debug": "^3.1.0",
     "dedent-js": "^1.0.1",
+    "growl": "^1.10.5",
     "html-entities": "^1.2.1",
+    "socks": "^2.2.1",
     "whois": "^2.5.10"
   },
   "devDependencies": {
