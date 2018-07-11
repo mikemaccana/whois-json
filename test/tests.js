@@ -170,6 +170,6 @@ suite('parseRawData', function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('google.co.uk', {server:'geektools.com'})
 		log(print(actual))
-		assert(actual.nameServers.indexOf("ns1.google.com") !== -1)
+		assert(actual.nameServers.includes("ns1.google.com"))
 	})	
 })
