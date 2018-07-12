@@ -162,15 +162,14 @@ suite('parseRawData', function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('google.com')
 		// Since results will change, just check some relevant fields.
-		assert.equal(actual.techEmail, "dns-admin@google.com")
-		assert.equal(actual.registrantName, "Domain Administrator")
-		assert.equal(actual.adminCity, "Mountain View")
+		assert.equal(actual.domainName, "google.com")
+		assert.equal(actual.registrarIanaId, 292)
 	})	
 
 	test('Geektools output with indented values and HTML entities', async function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('google.co.uk', {server:'geektools.com'})
 		log(print(actual))
-		assert.equal(actual.registrant, 'Google Inc.')
+		assert(actual.nameServers.includes("ns1.google.com"))
 	})	
 })
