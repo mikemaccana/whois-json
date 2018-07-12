@@ -167,9 +167,9 @@ suite('parseRawData', function(){
 	})	
 
 	test('Geektools output with indented values and HTML entities', async function(){
-		this.timeout(3 * 1000)
+		// Geektools is slow.
+		this.timeout(6 * 1000)
 		const actual = await lookup('google.co.uk', {server:'geektools.com'})
-		log(print(actual))
 		assert(actual.nameServers.includes("ns1.google.com"))
 	})	
 })
