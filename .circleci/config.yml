@@ -1,0 +1,53 @@
+# Based on same file in 'certsimple' repo
+# - RethinkDB removed
+# - working_directory changed
+
+# See https://circleci.com/docs/2.0/configuration-reference (badly written)
+# And https://circleci.com/docs/2.0/configuration-reference/#full-example (better)
+version: 2
+jobs:
+  build:
+    docker:
+      # https://circleci.com/docs/2.0/circleci-images/#nodejs
+      - image: circleci/node:8.11.1
+
+    # Note this needs a trailing slash or Circle will fail.
+    # Cannot be '~/' - see https://discuss.circleci.com/t/directory-tmp-you-are-trying-to-checkout-to-is-not-empty-and-not-git-repository/11370
+    working_directory: '~/whois-json'
+    branches:
+      only:
+        - master # list of branches to build
+
+    steps:
+      - checkout
+
+      # Debian doesn't consider LSB essential.
+      # Debian doesn't securely download packages by default.
+      # Sigh.
+      - run: sudo apt-get install lsb-release apt-transport-https
+
+      # Add required OS packages
+      # Note an unpackaged yarn is included with the node Docker image
+      - run: sudo apt-get update
+
+      # Debugging info (just in case someone asks)
+      # We check versions ASAP as major chnages can break compiling native modules
+      - run: lsb_release -a
+      - run: uname -a
+      - run: node --version
+      - run: yarn --version
+      - run: pwd
+
+      # Configure yarn and install required packages
+      - run: yarn --version
+      - run: yarn config set workspaces-experimental true
+      - run: sudo yarn global add mocha
+      - run: mocha --version
+      - run: yarn
+
+      # Run the tests
+      - run: mocha
+
+
+
+
