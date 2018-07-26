@@ -166,6 +166,14 @@ suite('parseRawData', function(){
 		assert.equal(actual.registrarIanaId, 292)
 	});
 
+	test('verbose real domain lookups', async function(){
+		this.timeout(3 * 1000)
+		const actual = await lookup('google.com', {verbose: true});
+		// Since results will change, just check some relevant fields.
+		assert.equal(actual[0].data.domainName, "GOOGLE.COM");
+		assert.equal(actual[0].data.registrarIanaId, 292);
+	});
+
 	test('Geektools output with indented values and HTML entities', async function(){
 		// Geektools is slow.
 		this.timeout(6 * 1000)
