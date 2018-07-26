@@ -11,15 +11,16 @@ var stripHTMLEntitites = function(rawData){
 }
 
 var parseRawData = function(rawData) {
-	
-	var result = {};	
-	
+
+	var result = [];
+
 	rawData = stripHTMLEntitites(rawData)
 	rawData = rawData.replace(/:\s*\r\n/g, ': ');
 	var lines = rawData.split('\n');
-	
+
+	entry = {};
 	lines.forEach(function(line){
-	
+
 		line = line.trim();
 		// colon space because that's the standard delimiter - not ':' as that's used in eg, http links
 		if ( line && line.includes(DELIMITER+' ') ) {
@@ -31,14 +32,37 @@ var parseRawData = function(rawData) {
 					value = lineParts.splice(1).join(DELIMITER).trim()
 
 				// If multiple lines use the same key, combine the values
-				if ( key in result ) {
-					result[key] = `${result[key]} ${value}`;
+				if ( key in entry ) {
+					entry[key] = `${entry[key]} ${value}`;
 					return
 				}
-				result[key] = value;
+				entry[key] = value;
 			}
 		}
+		if (line == '# end') {
+			result.push(entry);
+			entry = {};
+		}
 	});
+
+	if (result.length == 0) {
+		// only one result, return object
+		result = entry;
+	} else {
+		result.sort(function (a, b) {
+			// Sort Dsc  " > -1 "
+			// Sort Asc  " < -1 "
+			if (a.netHandle > b.netHandle) {
+				return -1;
+			}
+			if (a.netHandle < b.netHandle) {
+				return 1;
+			}
+
+			// names must be equal
+			return 0;
+		});
+	}
 
 	return result;
 }
