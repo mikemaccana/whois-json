@@ -13,7 +13,7 @@ const print = function(object){
 }
 
 suite('parseRawData', function(){
-	test('converts raw data into JS', function(){
+	test('converts raw domain data into JS', function(){
 		const rawData = dedent(`
 			Domain Name: google.com
 			Registry Domain ID: 2138514_DOMAIN_COM-VRSN
@@ -158,18 +158,18 @@ suite('parseRawData', function(){
 		assert.deepEqual(cleaned, correct)
 	})
 
-	test('real lookups', async function(){
+	test('real domain lookups', async function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('google.com')
 		// Since results will change, just check some relevant fields.
 		assert.equal(actual.domainName, "google.com")
 		assert.equal(actual.registrarIanaId, 292)
-	})	
+	});
 
 	test('Geektools output with indented values and HTML entities', async function(){
 		// Geektools is slow.
 		this.timeout(6 * 1000)
 		const actual = await lookup('google.co.uk', {server:'geektools.com'})
 		assert(actual.nameServers.includes("ns1.google.com"))
-	})	
+	});
 })
