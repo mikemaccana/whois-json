@@ -2,7 +2,13 @@ A wrapper for the excellent [`whois` module](https://www.npmjs.com/package/whois
 
 [![Build Status](https://travis-ci.org/mikemaccana/whois-json.svg?branch=master)](https://travis-ci.org/mikemaccana/whois-json)
 
-# Changes in version 2
+# Changelog
+
+## Breaking Changes in version 3
+
+Lookups always return an array.
+
+## Breaking Changes in version 2
 
 Callbacks are no longer supported by this module - the module returns Promises and should be used with `await`.
 
@@ -14,6 +20,8 @@ Callbacks are no longer supported by this module - the module returns Promises a
 		var results = await whois('google.com');
 		console.log(JSON.stringify(results, null, 2));
 	})()
+
+## Domain Lookups
 
 Or to specify some options to the underlying [`whois` module](https://www.npmjs.com/package/whois), use:
 
@@ -77,8 +85,83 @@ Returns the following results. Note duplicate keys in whois results (like `nameS
 	  }
 	]
 
+## IP Address Lookups
+
+This module can also perform IP address lookups.
+
+	(async function(){
+		const whois = require('whois-json');
+
+		var results = await whois('8.8.8.8', {follow: 3, verbose: true});
+		console.log(JSON.stringify(results, null, 2));
+	})()
+
+And returns all information about the owners of the address space in ascending order (from smallest subnet size to largest subnet size).
+
+	[
+      {
+        "netRange": "8.8.8.0 - 8.8.8.255",
+        "cidr": "8.8.8.0/24",
+        "netName": "LVLT-GOGL-8-8-8",
+        "netHandle": "NET-8-8-8-0-1",
+        "parent": "LVLT-ORG-8-8 (NET-8-0-0-0-1)",
+        "netType": "Reallocated",
+        "organization": "Google LLC (GOGL)",
+        "regDate": "2014-03-14 2000-03-30",
+        "updated": "2014-03-14 2017-12-21",
+        "ref": "https://rdap.arin.net/registry/ip/8.8.8.0 https://rdap.arin.net/registry/entity/GOGL",
+        "orgName": "Google LLC",
+        "orgId": "GOGL",
+        "address": "1600 Amphitheatre Parkway",
+        "city": "Mountain View",
+        "stateProv": "CA",
+        "postalCode": "94043",
+        "country": "US",
+        "orgTechHandle": "ZG39-ARIN",
+        "orgTechName": "Google LLC",
+        "orgTechPhone": "+1-650-253-0000",
+        "orgTechEmail": "arin-contact@google.com",
+        "orgTechRef": "https://rdap.arin.net/registry/entity/ZG39-ARIN",
+        "orgAbuseHandle": "ABUSE5250-ARIN",
+        "orgAbuseName": "Abuse",
+        "orgAbusePhone": "+1-650-253-0000",
+        "orgAbuseEmail": "network-abuse@google.com",
+        "orgAbuseRef": "https://rdap.arin.net/registry/entity/ABUSE5250-ARIN"
+      },
+      {
+        "availableAt": "https://www.arin.net/whois_tou.html",
+        "netRange": "8.0.0.0 - 8.127.255.255",
+        "cidr": "8.0.0.0/9",
+        "netName": "LVLT-ORG-8-8",
+        "netHandle": "NET-8-0-0-0-1",
+        "parent": "NET8 (NET-8-0-0-0-0)",
+        "netType": "Direct Allocation",
+        "organization": "Level 3 Parent, LLC (LPL-141)",
+        "regDate": "1992-12-01 2018-02-06",
+        "updated": "2018-04-23 2018-02-22",
+        "ref": "https://rdap.arin.net/registry/ip/8.0.0.0 https://rdap.arin.net/registry/entity/LPL-141",
+        "orgName": "Level 3 Parent, LLC",
+        "orgId": "LPL-141",
+        "address": "100 CenturyLink Drive",
+        "city": "Monroe",
+        "stateProv": "LA",
+        "postalCode": "71203",
+        "country": "US",
+        "orgAbuseHandle": "IPADD5-ARIN",
+        "orgAbuseName": "ipaddressing",
+        "orgAbusePhone": "+1-877-453-8353",
+        "orgAbuseEmail": "ipaddressing@level3.com",
+        "orgAbuseRef": "https://rdap.arin.net/registry/entity/IPADD5-ARIN",
+        "orgTechHandle": "IPADD5-ARIN",
+        "orgTechName": "ipaddressing",
+        "orgTechPhone": "+1-877-453-8353",
+        "orgTechEmail": "ipaddressing@level3.com",
+        "orgTechRef": "https://rdap.arin.net/registry/entity/IPADD5-ARIN"
+      }
+    ]
+
 # Send pull requests
 
-Issues are cool, but PRs are better. 
+Issues are cool, but PRs are better.
 
 If you add features, add tests. Don't break the tests.
