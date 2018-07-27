@@ -107,7 +107,7 @@ suite('parseRawData', function(){
 			https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en
 			--`)
 		const cleaned = parseRawData(rawData)
-		const correct = {
+		const correct = [ {
 			"domainName": "google.com",
 			"registryDomainId": "2138514_DOMAIN_COM-VRSN",
 			"registrarWhoisServer": "whois.markmonitor.com",
@@ -154,7 +154,7 @@ suite('parseRawData', function(){
 			"dnssec": "unsigned",
 			"urlOfTheIcannWhoisDataProblemReportingSystem": "http://wdprs.internic.net/",
 			"lastUpdateOfWhoisDatabase": "2017-02-22T03:53:14-0800 <<<"
-		};
+		} ];
 		assert.deepEqual(cleaned, correct)
 	})
 

@@ -24,10 +24,10 @@ Or to specify some options to the underlying [`whois` module](https://www.npmjs.
 		console.log(JSON.stringify(results, null, 2));
 	})()
 
-
 Returns the following results. Note duplicate keys in whois results (like `nameServer`) are combined into a single result, seperated by space:
 
-	{
+	[
+	  {
 		"domainName": "google.com",
 		"registryDomainId": "2138514_DOMAIN_COM-VRSN",
 		"registrarWhoisServer": "whois.markmonitor.com",
@@ -74,7 +74,8 @@ Returns the following results. Note duplicate keys in whois results (like `nameS
 		"dnssec": "unsigned",
 		"urlOfTheIcannWhoisDataProblemReportingSystem": "http://wdprs.internic.net/",
 		"lastUpdateOfWhoisDatabase": "2017-02-22T03:53:14-0800 <<<"
-	};
+	  }
+	]
 
 # Send pull requests
 

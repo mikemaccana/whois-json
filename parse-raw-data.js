@@ -46,8 +46,8 @@ var parseRawData = function(rawData) {
 	});
 
 	if (result.length == 0) {
-		// only one result, return object
-		result = entry;
+		// only one result, push it
+		result.push(entry);
 	} else {
 		result.sort(function (a, b) {
 			// Sort Dsc  " > -1 "
