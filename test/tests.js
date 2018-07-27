@@ -492,8 +492,8 @@ suite('parseRawData', function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('8.8.8.8', {verbose: true})
 		// there's a good chance that these will not be reallocated in the lifetime of nodejs
-		assert.equal(actual.data[0].orgId, "GOGL");
-		assert.equal(actual.data[1].orgId, "LPL-141");
+		assert.equal(actual[0].data[0].orgId, "GOGL");
+		assert.equal(actual[0].data[1].orgId, "LPL-141");
 	});
 
 	test('Geektools output with indented values and HTML entities', async function(){
