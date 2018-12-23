@@ -158,6 +158,147 @@ suite('parseRawData', function(){
 		assert.deepEqual(cleaned, correct)
 	})
 
+	test('converts raw data (case with no spaces after delimiters) into JS', function(){
+		const rawData = dedent(`
+			Domain Name:addlvr.com
+			Registry Domain ID:2323887016_DOMAIN_COM-VRSN
+			Registrar WHOIS Server:whois.paycenter.com.cn
+			Registrar URL:http://www.xinnet.com
+			Updated Date:2018-10-22T04:51:08.00Z
+			Creation Date:2018-10-21T02:11:14.00Z
+			Registrar Registration Expiration Date:2019-10-21T02:11:14.00Z
+			Registrar:XINNET TECHNOLOGY CORPORATION
+			Registrar IANA ID:120
+			Registrar Abuse Contact Email:supervision@xinnet.com
+			Registrar Abuse Contact Phone:+86.1087128064
+			Reseller:hefeixunyunwangluokejiyouxiangongsi
+			Domain Status:ok https://www.icann.org/epp#ok
+			Registry Registrant ID:
+			Registrant Name:
+			Registrant Organization:
+			Registrant Street:
+			Registrant City:
+			Registrant State/Province:
+			Registrant Postal Code:
+			Registrant Country:
+			Registrant Phone:
+			Registrant Phone Ext:
+			Registrant Fax:
+			Registrant Fax Ext:
+			Registrant Email:
+			Registry Admin ID:
+			Admin Name:
+			Admin Organization:
+			Admin Street:
+			Admin City:
+			Admin State/Province:
+			Admin PostalCode:
+			Admin Country:
+			Admin Phone:
+			Admin Phone Ext:
+			Admin Fax:
+			Admin Fax Ext:
+			Admin Email:
+			Registry Tech ID:
+			Tech Name:
+			Tech Organization:
+			Tech Street:
+			Tech City:
+			Tech State/Province:
+			Tech PostalCode:
+			Tech Country:
+			Tech Phone:
+			Tech Phone Ext:
+			Tech Fax:
+			Tech Fax Ext:
+			Tech Email:
+			Name Server:jm1.dns.com
+			Name Server:jm2.dns.com
+			DNSSEC:unsigned
+			URL of the ICANN WHOIS Data Problem Reporting System: http://wdprs.internic.net/
+			>>> Last update of WHOIS database: 2018-12-23T14:08:06.00Z <<<: 
+			
+			For more information on Whois status codes, please visit https://icann.org/epp
+			
+			The Data in Paycenter's WHOIS database is provided by Paycenter
+			for information purposes, and to assist persons in obtaining
+			information about or related to a domain name registration record.
+			Paycenter does not guarantee its accuracy.  By submitting
+			a WHOIS query, you agree that you will use this Data only
+			for lawful purposes and that, 
+			under no circumstances will you use this Data to:
+			(1) allow, enable, or otherwise support the transmission
+			of mass unsolicited, commercial advertising or solicitations
+			via e-mail (spam); or
+			(2) enable high volume, automated, electronic processes that
+			apply to Paycenter or its systems.
+			Paycenter reserves the right to modify these terms at any time.
+			By submitting this query, you agree to abide by this policy.!!
+		`)
+		const cleaned = parseRawData(rawData)
+		const correct = {
+			"domainName": "addlvr.com",
+			"registryDomainId": "2323887016_DOMAIN_COM-VRSN",
+			"registrarWhoisServer": "whois.paycenter.com.cn",
+			"registrarUrl": "http://www.xinnet.com",
+			"updatedDate": "2018-10-22T04:51:08.00Z",
+			"creationDate": "2018-10-21T02:11:14.00Z",
+			"registrarRegistrationExpirationDate": "2019-10-21T02:11:14.00Z",
+			"registrar": "XINNET TECHNOLOGY CORPORATION",
+			"registrarIanaId": "120",
+			"registrarAbuseContactEmail": "supervision@xinnet.com",
+			"registrarAbuseContactPhone": "+86.1087128064",
+			"reseller": "hefeixunyunwangluokejiyouxiangongsi",
+			"domainStatus": "ok https://www.icann.org/epp#ok",
+			"registryRegistrantId": "",
+			"registrantName": "",
+			"registrantOrganization": "",
+			"registrantStreet": "",
+			"registrantCity": "",
+			"registrantStateProvince": "",
+			"registrantPostalCode": "",
+			"registrantCountry": "",
+			"registrantPhone": "",
+			"registrantPhoneExt": "",
+			"registrantFax": "",
+			"registrantFaxExt": "",
+			"registrantEmail": "",
+			"registryAdminId": "",
+			"adminName": "",
+			"adminOrganization": "",
+			"adminStreet": "",
+			"adminCity": "",
+			"adminStateProvince": "",
+			"adminPostalCode": "",
+			"adminCountry": "",
+			"adminPhone": "",
+			"adminPhoneExt": "",
+			"adminFax": "",
+			"adminFaxExt": "",
+			"adminEmail": "",
+			"registryTechId": "",
+			"techName": "",
+			"techOrganization": "",
+			"techStreet": "",
+			"techCity": "",
+			"techStateProvince": "",
+			"techPostalCode": "",
+			"techCountry": "",
+			"techPhone": "",
+			"techPhoneExt": "",
+			"techFax": "",
+			"techFaxExt": "",
+			"techEmail": "",
+			"nameServer": "jm1.dns.com jm2.dns.com",
+			"dnssec": "unsigned",
+			"urlOfTheIcannWhoisDataProblemReportingSystem": "http://wdprs.internic.net/",
+			"lastUpdateOfWhoisDatabase": "2018-12-23T14:08:06.00Z <<<:",
+			"forMoreInformationOnWhoisStatusCodesPleaseVisitHttps": "//icann.org/epp",
+			"underNoCircumstancesWillYouUseThisDataTo": ""
+		};
+		assert.deepEqual(cleaned, correct)
+	})
+
 	test('real lookups', async function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('google.com')
@@ -171,5 +312,7 @@ suite('parseRawData', function(){
 		this.timeout(6 * 1000)
 		const actual = await lookup('google.co.uk', {server:'geektools.com'})
 		assert(actual.nameServers.includes("ns1.google.com"))
-	})	
+	})
+
+
 })
