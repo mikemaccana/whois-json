@@ -153,7 +153,8 @@ suite('parseRawData', function(){
 			"nameServer": "ns4.google.com ns2.google.com ns1.google.com ns3.google.com",
 			"dnssec": "unsigned",
 			"urlOfTheIcannWhoisDataProblemReportingSystem": "http://wdprs.internic.net/",
-			"lastUpdateOfWhoisDatabase": "2017-02-22T03:53:14-0800 <<<"
+			"lastUpdateOfWhoisDatabase": "2017-02-22T03:53:14-0800 <<<",
+			"rawWhois": rawData
 		};
 		assert.deepEqual(cleaned, correct)
 	})
@@ -294,7 +295,8 @@ suite('parseRawData', function(){
 			"urlOfTheIcannWhoisDataProblemReportingSystem": "http://wdprs.internic.net/",
 			"lastUpdateOfWhoisDatabase": "2018-12-23T14:08:06.00Z <<<:",
 			"forMoreInformationOnWhoisStatusCodesPleaseVisitHttps": "//icann.org/epp",
-			"underNoCircumstancesWillYouUseThisDataTo": ""
+			"underNoCircumstancesWillYouUseThisDataTo": "",
+			"rawWhois": rawData
 		};
 		assert.deepEqual(cleaned, correct)
 	})

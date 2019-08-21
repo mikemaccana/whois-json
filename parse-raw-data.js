@@ -54,7 +54,7 @@ var parseRawData = function(rawData) {
 			}
 		}
 	});
-
+	result.rawWhois = rawData
 	return result;
 }
 
