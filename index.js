@@ -7,7 +7,7 @@ var lookup = util.promisify(whois.lookup);
 
 module.exports = async function(domain, options){
 
-	var rawData = await lookup(domain, options || {})	
+	var rawData = await lookup(domain, options || {})
 
 	var result = {};
 
@@ -22,5 +22,3 @@ module.exports = async function(domain, options){
 
 	return result;
 }
-
-

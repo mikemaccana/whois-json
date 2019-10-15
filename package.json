@@ -1,6 +1,6 @@
 {
   "name": "whois-json",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "whois, with actual JavaScript (not flat string) results!",
   "main": "index.js",
   "scripts": {
@@ -12,11 +12,44 @@
     "type": "git",
     "url": "https://github.com/mikemaccana/whois-json.git"
   },
+  "contributors": [
+    {
+      "name": "Justin J. Novack",
+      "email": "jnovack@gmail.com"
+    },
+    {
+      "name": "Ziv Eli",
+      "email": "zbone3@gmail.com"
+    },
+    {
+      "name": "Matthew Moses",
+      "email": "matthew.moses@gmail.com"
+    },
+    {
+      "name": "Kacper Żuk",
+      "email": "kacper.b.zuk@gmail.com"
+    },
+    {
+      "name": "Jonas Felix",
+      "email": "jonas.felix@felixideas.ch"
+    },
+    {
+      "name": "Deojeff",
+      "email": "deojeff@swag.my"
+    },
+    {
+      "name": "Alin-Andrei Chican",
+      "email": "alin@chican.ro"
+    }
+  ],
   "dependencies": {
     "change-case": "^3.0.2",
     "dedent-js": "^1.0.1",
     "html-entities": "^1.2.1",
     "whois": "^2.6.0"
+  },
+  "engines": {
+    "node": "> 8.0.0"
   },
   "devDependencies": {
     "mocha": "^3.2.0"

@@ -13,7 +13,7 @@ const print = function(object){
 }
 
 suite('parseRawData', function(){
-	test('converts raw data into JS', function(){
+	test('converts raw domain data into JS', function(){
 		const rawData = dedent(`
 			Domain Name: google.com
 			Registry Domain ID: 2138514_DOMAIN_COM-VRSN
@@ -107,7 +107,7 @@ suite('parseRawData', function(){
 			https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en
 			--`)
 		const cleaned = parseRawData(rawData)
-		const correct = {
+		const correct = [ {
 			"domainName": "google.com",
 			"registryDomainId": "2138514_DOMAIN_COM-VRSN",
 			"registrarWhoisServer": "whois.markmonitor.com",
@@ -154,9 +154,315 @@ suite('parseRawData', function(){
 			"dnssec": "unsigned",
 			"urlOfTheIcannWhoisDataProblemReportingSystem": "http://wdprs.internic.net/",
 			"lastUpdateOfWhoisDatabase": "2017-02-22T03:53:14-0800 <<<"
-		};
+		} ];
 		assert.deepEqual(cleaned, correct)
 	})
+
+	test('converts raw ip data into JS', function(){
+		const rawData = dedent(`
+			% IANA WHOIS server
+			% for more information on IANA, visit http://www.iana.org
+			% This query returned 1 object
+
+			refer:        whois.arin.net
+
+			inetnum:      104.0.0.0 - 104.255.255.255
+			organisation: ARIN
+			status:       ALLOCATED
+
+			whois:        whois.arin.net
+
+			changed:      2011-02
+			source:       IANA
+
+
+			#
+			# ARIN WHOIS data and services are subject to the Terms of Use
+			# available at: https://www.arin.net/whois_tou.html
+			#
+			# If you see inaccuracies in the results, please report at
+			# https://www.arin.net/resources/whois_reporting/index.html
+			#
+			# Copyright 1997-2018, American Registry for Internet Numbers, Ltd.
+			#
+
+
+			#
+			# Query terms are ambiguous.  The query is assumed to be:
+			#     "n + 104.144.194.0"
+			#
+			# Use "?" to get help.
+			#
+
+
+			# start
+
+			NetRange:       104.144.0.0 - 104.144.255.255
+			CIDR:           104.144.0.0/16
+			NetName:        SERVERMANIA
+			NetHandle:      NET-104-144-0-0-2
+			Parent:         B2NETSOLUTIONS (NET-104-144-0-0-1)
+			NetType:        Reallocated
+			OriginAS:       AS55286
+			Organization:   B2 Net Solutions Inc. (BNS-34)
+			RegDate:        2014-07-22
+			Updated:        2014-07-22
+			Ref:            https://rdap.arin.net/registry/ip/104.144.0.0
+
+
+			OrgName:        B2 Net Solutions Inc.
+			OrgId:          BNS-34
+			Address:        2B-560 Arvin Avenue
+			City:           Stoney Creek
+			StateProv:      ON
+			PostalCode:     L8E 5P1
+			Country:        CA
+			RegDate:        2011-10-24
+			Updated:        2018-07-19
+			Comment:        https://servermania.com
+			Ref:            https://rdap.arin.net/registry/entity/BNS-34
+
+
+			OrgAbuseHandle: NOC13339-ARIN
+			OrgAbuseName:   Network Operations Center
+			OrgAbusePhone:  +1-716-745-4678
+			OrgAbuseEmail:  support@servermania.com
+			OrgAbuseRef:    https://rdap.arin.net/registry/entity/NOC13339-ARIN
+
+			OrgTechHandle: NOC13339-ARIN
+			OrgTechName:   Network Operations Center
+			OrgTechPhone:  +1-716-745-4678
+			OrgTechEmail:  support@servermania.com
+			OrgTechRef:    https://rdap.arin.net/registry/entity/NOC13339-ARIN
+
+			OrgNOCHandle: NOC13339-ARIN
+			OrgNOCName:   Network Operations Center
+			OrgNOCPhone:  +1-716-745-4678
+			OrgNOCEmail:  support@servermania.com
+			OrgNOCRef:    https://rdap.arin.net/registry/entity/NOC13339-ARIN
+
+			# end
+
+
+			# start
+
+			NetRange:       104.144.0.0 - 104.144.255.255
+			CIDR:           104.144.0.0/16
+			NetName:        B2NETSOLUTIONS
+			NetHandle:      NET-104-144-0-0-1
+			Parent:         NET104 (NET-104-0-0-0-0)
+			NetType:        Direct Allocation
+			OriginAS:
+			Organization:   B2 Net Solutions Inc. (BNS-34)
+			RegDate:        2014-07-22
+			Updated:        2014-07-22
+			Ref:            https://rdap.arin.net/registry/ip/104.144.0.0
+
+
+
+			OrgName:        B2 Net Solutions Inc.
+			OrgId:          BNS-34
+			Address:        2B-560 Arvin Avenue
+			City:           Stoney Creek
+			StateProv:      ON
+			PostalCode:     L8E 5P1
+			Country:        CA
+			RegDate:        2011-10-24
+			Updated:        2018-07-19
+			Comment:        https://servermania.com
+			Ref:            https://rdap.arin.net/registry/entity/BNS-34
+
+
+			OrgAbuseHandle: NOC13339-ARIN
+			OrgAbuseName:   Network Operations Center
+			OrgAbusePhone:  +1-716-745-4678
+			OrgAbuseEmail:  support@servermania.com
+			OrgAbuseRef:    https://rdap.arin.net/registry/entity/NOC13339-ARIN
+
+			OrgTechHandle: NOC13339-ARIN
+			OrgTechName:   Network Operations Center
+			OrgTechPhone:  +1-716-745-4678
+			OrgTechEmail:  support@servermania.com
+			OrgTechRef:    https://rdap.arin.net/registry/entity/NOC13339-ARIN
+
+			OrgNOCHandle: NOC13339-ARIN
+			OrgNOCName:   Network Operations Center
+			OrgNOCPhone:  +1-716-745-4678
+			OrgNOCEmail:  support@servermania.com
+			OrgNOCRef:    https://rdap.arin.net/registry/entity/NOC13339-ARIN
+
+			# end
+
+
+			# start
+
+			NetRange:       104.144.194.0 - 104.144.195.255
+			CIDR:           104.144.194.0/23
+			NetName:        NET-104-144-194-0-1
+			NetHandle:      NET-104-144-194-0-1
+			Parent:         SERVERMANIA (NET-104-144-0-0-2)
+			NetType:        Reassigned
+			OriginAS:
+			Customer:       ProxynVPN (C07015515)
+			RegDate:        2018-07-03
+			Updated:        2018-07-03
+			Ref:            https://rdap.arin.net/registry/ip/104.144.194.0
+
+
+			CustName:       ProxynVPN
+			Address:        746 Delaware Avenue
+			City:           Buffalo
+			StateProv:      NY
+			PostalCode:     14202
+			Country:        US
+			RegDate:        2018-07-03
+			Updated:        2018-07-03
+			Ref:            https://rdap.arin.net/registry/entity/C07015515
+
+			OrgAbuseHandle: NOC13339-ARIN
+			OrgAbuseName:   Network Operations Center
+			OrgAbusePhone:  +1-716-745-4678
+			OrgAbuseEmail:  support@servermania.com
+			OrgAbuseRef:    https://rdap.arin.net/registry/entity/NOC13339-ARIN
+
+			OrgTechHandle: NOC13339-ARIN
+			OrgTechName:   Network Operations Center
+			OrgTechPhone:  +1-716-745-4678
+			OrgTechEmail:  support@servermania.com
+			OrgTechRef:    https://rdap.arin.net/registry/entity/NOC13339-ARIN
+
+			OrgNOCHandle: NOC13339-ARIN
+			OrgNOCName:   Network Operations Center
+			OrgNOCPhone:  +1-716-745-4678
+			OrgNOCEmail:  support@servermania.com
+			OrgNOCRef:    https://rdap.arin.net/registry/entity/NOC13339-ARIN
+
+			# end
+
+
+
+			#
+			# ARIN WHOIS data and services are subject to the Terms of Use
+			# available at: https://www.arin.net/whois_tou.html
+			#
+			# If you see inaccuracies in the results, please report at
+			# https://www.arin.net/resources/whois_reporting/index.html
+			#
+			# Copyright 1997-2018, American Registry for Internet Numbers, Ltd.
+			#`);
+		const cleaned = parseRawData(rawData);
+		const correct = [ {
+ 			"address": "746 Delaware Avenue",
+ 			"cidr": "104.144.194.0/23",
+ 			"city": "Buffalo",
+ 			"country": "US",
+ 			"custName": "ProxynVPN",
+ 			"customer": "ProxynVPN (C07015515)",
+ 			"netHandle": "NET-104-144-194-0-1",
+ 			"netName": "NET-104-144-194-0-1",
+ 			"netRange": "104.144.194.0 - 104.144.195.255",
+ 			"netType": "Reassigned",
+ 			"orgAbuseEmail": "support@servermania.com",
+ 			"orgAbuseHandle": "NOC13339-ARIN",
+ 			"orgAbuseName": "Network Operations Center",
+ 			"orgAbusePhone": "+1-716-745-4678",
+ 			"orgAbuseRef": "https://rdap.arin.net/registry/entity/NOC13339-ARIN",
+ 			"orgNocEmail": "support@servermania.com",
+ 			"orgNocHandle": "NOC13339-ARIN",
+ 			"orgNocName": "Network Operations Center",
+ 			"orgNocPhone": "+1-716-745-4678",
+ 			"orgNocRef": "https://rdap.arin.net/registry/entity/NOC13339-ARIN",
+ 			"orgTechEmail": "support@servermania.com",
+ 			"orgTechHandle": "NOC13339-ARIN",
+ 			"orgTechName": "Network Operations Center",
+ 			"orgTechPhone": "+1-716-745-4678",
+ 			"orgTechRef": "https://rdap.arin.net/registry/entity/NOC13339-ARIN",
+ 			"parent": "SERVERMANIA (NET-104-144-0-0-2)",
+ 			"postalCode": "14202",
+ 			"ref": "https://rdap.arin.net/registry/ip/104.144.194.0 https://rdap.arin.net/registry/entity/C07015515",
+ 			"regDate": "2018-07-03 2018-07-03",
+ 			"stateProv": "NY",
+ 			"updated": "2018-07-03 2018-07-03"
+ 		}, {
+ 			"address": "2B-560 Arvin Avenue",
+ 			"availableAt": "https://www.arin.net/whois_tou.html",
+ 			"changed": "2011-02",
+ 			"cidr": "104.144.0.0/16",
+ 			"city": "Stoney Creek",
+ 			"comment": "https://servermania.com",
+ 			"country": "CA",
+ 			"inetnum": "104.0.0.0 - 104.255.255.255",
+ 			"netHandle": "NET-104-144-0-0-2",
+ 			"netName": "SERVERMANIA",
+ 			"netRange": "104.144.0.0 - 104.144.255.255",
+ 			"netType": "Reallocated",
+ 			"orgAbuseEmail": "support@servermania.com",
+ 			"orgAbuseHandle": "NOC13339-ARIN",
+ 			"orgAbuseName": "Network Operations Center",
+ 			"orgAbusePhone": "+1-716-745-4678",
+ 			"orgAbuseRef": "https://rdap.arin.net/registry/entity/NOC13339-ARIN",
+ 			"orgId": "BNS-34",
+ 			"orgName": "B2 Net Solutions Inc.",
+ 			"orgNocEmail": "support@servermania.com",
+ 			"orgNocHandle": "NOC13339-ARIN",
+ 			"orgNocName": "Network Operations Center",
+ 			"orgNocPhone": "+1-716-745-4678",
+ 			"orgNocRef": "https://rdap.arin.net/registry/entity/NOC13339-ARIN",
+ 			"orgTechEmail": "support@servermania.com",
+ 			"orgTechHandle": "NOC13339-ARIN",
+ 			"orgTechName": "Network Operations Center",
+ 			"orgTechPhone": "+1-716-745-4678",
+ 			"orgTechRef": "https://rdap.arin.net/registry/entity/NOC13339-ARIN",
+ 			"organisation": "ARIN",
+ 			"organization": "B2 Net Solutions Inc. (BNS-34)",
+ 			"originAs": "AS55286",
+ 			"parent": "B2NETSOLUTIONS (NET-104-144-0-0-1)",
+ 			"postalCode": "L8E 5P1",
+ 			"ref": "https://rdap.arin.net/registry/ip/104.144.0.0 https://rdap.arin.net/registry/entity/BNS-34",
+ 			"refer": "whois.arin.net",
+ 			"regDate": "2014-07-22 2011-10-24",
+ 			"source": "IANA",
+ 			"stateProv": "ON",
+ 			"status": "ALLOCATED",
+ 			"updated": "2014-07-22 2018-07-19",
+ 			"whois": "whois.arin.net"
+ 		}, {
+			"address": "2B-560 Arvin Avenue",
+ 			"cidr": "104.144.0.0/16",
+ 			"city": "Stoney Creek",
+ 			"comment": "https://servermania.com",
+ 			"country": "CA",
+ 			"netHandle": "NET-104-144-0-0-1",
+ 			"netName": "B2NETSOLUTIONS",
+ 			"netRange": "104.144.0.0 - 104.144.255.255",
+ 			"netType": "Direct Allocation",
+ 			"orgAbuseEmail": "support@servermania.com",
+ 			"orgAbuseHandle": "NOC13339-ARIN",
+ 			"orgAbuseName": "Network Operations Center",
+ 			"orgAbusePhone": "+1-716-745-4678",
+ 			"orgAbuseRef": "https://rdap.arin.net/registry/entity/NOC13339-ARIN",
+ 			"orgId": "BNS-34",
+ 			"orgName": "B2 Net Solutions Inc.",
+ 			"orgNocEmail": "support@servermania.com",
+ 			"orgNocHandle": "NOC13339-ARIN",
+ 			"orgNocName": "Network Operations Center",
+ 			"orgNocPhone": "+1-716-745-4678",
+ 			"orgNocRef": "https://rdap.arin.net/registry/entity/NOC13339-ARIN",
+ 			"orgTechEmail": "support@servermania.com",
+ 			"orgTechHandle": "NOC13339-ARIN",
+ 			"orgTechName": "Network Operations Center",
+ 			"orgTechPhone": "+1-716-745-4678",
+ 			"orgTechRef": "https://rdap.arin.net/registry/entity/NOC13339-ARIN",
+ 			"organization": "B2 Net Solutions Inc. (BNS-34)",
+ 			"parent": "NET104 (NET-104-0-0-0-0)",
+ 			"postalCode": "L8E 5P1",
+ 			"ref": "https://rdap.arin.net/registry/ip/104.144.0.0 https://rdap.arin.net/registry/entity/BNS-34",
+ 			"regDate": "2014-07-22 2011-10-24",
+ 			"stateProv": "ON",
+ 			"updated": "2014-07-22 2018-07-19"
+		} ];
+		assert.deepEqual(cleaned, correct);
+	});
 
 	test('converts raw data (case with no spaces after delimiters) into JS', function(){
 		const rawData = dedent(`
@@ -216,16 +522,16 @@ suite('parseRawData', function(){
 			Name Server:jm2.dns.com
 			DNSSEC:unsigned
 			URL of the ICANN WHOIS Data Problem Reporting System: http://wdprs.internic.net/
-			>>> Last update of WHOIS database: 2018-12-23T14:08:06.00Z <<<: 
-			
+			>>> Last update of WHOIS database: 2018-12-23T14:08:06.00Z <<<:
+
 			For more information on Whois status codes, please visit https://icann.org/epp
-			
+
 			The Data in Paycenter's WHOIS database is provided by Paycenter
 			for information purposes, and to assist persons in obtaining
 			information about or related to a domain name registration record.
 			Paycenter does not guarantee its accuracy.  By submitting
 			a WHOIS query, you agree that you will use this Data only
-			for lawful purposes and that, 
+			for lawful purposes and that,
 			under no circumstances will you use this Data to:
 			(1) allow, enable, or otherwise support the transmission
 			of mass unsolicited, commercial advertising or solicitations
@@ -236,7 +542,7 @@ suite('parseRawData', function(){
 			By submitting this query, you agree to abide by this policy.!!
 		`)
 		const cleaned = parseRawData(rawData)
-		const correct = {
+		const correct = [ {
 			"domainName": "addlvr.com",
 			"registryDomainId": "2323887016_DOMAIN_COM-VRSN",
 			"registrarWhoisServer": "whois.paycenter.com.cn",
@@ -295,24 +601,47 @@ suite('parseRawData', function(){
 			"lastUpdateOfWhoisDatabase": "2018-12-23T14:08:06.00Z <<<:",
 			"forMoreInformationOnWhoisStatusCodesPleaseVisitHttps": "//icann.org/epp",
 			"underNoCircumstancesWillYouUseThisDataTo": ""
-		};
+		} ];
 		assert.deepEqual(cleaned, correct)
 	})
 
-	test('real lookups', async function(){
+	test('real domain lookups', async function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('google.com')
 		// Since results will change, just check some relevant fields.
-		assert.equal(actual.domainName, "google.com")
-		assert.equal(actual.registrarIanaId, 292)
-	})	
+		assert.equal(actual[0].domainName, "google.com")
+		assert.equal(actual[0].registrarIanaId, 292)
+	});
+
+	test('real ip lookups', async function(){
+		this.timeout(3 * 1000)
+		const actual = await lookup('8.8.8.8')
+		// there's a good chance that these will not be reallocated in the lifetime of nodejs
+		assert.equal(actual[0].orgId, "GOGL");
+		assert.equal(actual[1].orgId, "LPL-141");
+	});
+
+	test('verbose real domain lookups', async function(){
+		this.timeout(3 * 1000)
+		const actual = await lookup('google.com', {verbose: true});
+		// Since results will change, just check some relevant fields.
+		assert.equal(actual[0].data[0].domainName, "GOOGLE.COM");
+		assert.equal(actual[0].data[0].registrarIanaId, 292);
+	});
+
+	test('verbose real ip lookups', async function(){
+		this.timeout(3 * 1000)
+		const actual = await lookup('8.8.8.8', {verbose: true})
+		// there's a good chance that these will not be reallocated in the lifetime of nodejs
+		assert.equal(actual[0].data[0].orgId, "GOGL");
+		assert.equal(actual[0].data[1].orgId, "LPL-141");
+	});
 
 	test('Geektools output with indented values and HTML entities', async function(){
 		// Geektools is slow.
 		this.timeout(6 * 1000)
 		const actual = await lookup('google.co.uk', {server:'geektools.com'})
-		assert(actual.nameServers.includes("ns1.google.com"))
-	})
-
+		assert(actual[0].nameServers.includes("ns1.google.com"))
+	});
 
 })
