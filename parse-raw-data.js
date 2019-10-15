@@ -10,6 +10,19 @@ var stripHTMLEntitites = function(rawData){
 	return entities.decode(rawData);
 }
 
+//Checks whether a delimiter followed by a space common in this result
+var getCommonDelimiterForm = function(rawData, delimiter) {
+	var delimiterPattern = new RegExp(delimiter + '\\S+', 'g');
+	var delimiterWSpacePattern = new RegExp(delimiter + ' ', 'g');
+	var delimiterMatches = rawData.match(delimiterPattern) || [];
+	var delimiterWSpaceMatches = rawData.match(delimiterWSpacePattern) || [];
+
+	if (delimiterMatches.length > delimiterWSpaceMatches.length) {
+		return delimiter;
+	}
+	return delimiter + ' ';
+}
+
 var parseRawData = function(rawData) {
 
 	var result = [];
@@ -19,11 +32,14 @@ var parseRawData = function(rawData) {
 	var lines = rawData.split('\n');
 
 	entry = {};
+	var delimiter = getCommonDelimiterForm(rawData, DELIMITER);
+
 	lines.forEach(function(line){
 
 		line = line.trim();
+
 		// colon space because that's the standard delimiter - not ':' as that's used in eg, http links
-		if ( line && line.includes(DELIMITER+' ') ) {
+		if ( line && line.includes(delimiter) ) {
 			var lineParts = line.split(DELIMITER);
 
 			// 'Greater than' since lines often have more than one colon, eg values with URLs
@@ -67,4 +83,4 @@ var parseRawData = function(rawData) {
 	return result;
 }
 
-module.exports = parseRawData
+module.exports = parseRawData;
