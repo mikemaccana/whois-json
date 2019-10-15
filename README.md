@@ -6,7 +6,33 @@ A wrapper for the excellent [`whois` module](https://www.npmjs.com/package/whois
 
 ## Breaking Changes in version 3
 
-Lookups always return an array.
+An IP Lookup can return MULTIPLE entries (when domains are reallocated or
+reassigned). This version returns all the IP ranges in reverse order
+so the smallest/most accurately allocated range is returned as .[0], the
+largest range or owner will return as .[length-1].
+
+### Version 3
+
+Lookups will always return an array from most significant data to least
+significant data.
+
+	[
+	  {
+		"domainName": "google.com",
+		...
+	  }
+	]
+
+### Version 2
+
+Lookups were always an object with a single entry.  Occasionally, the result
+was not the most correct it could have been due to reallocations or range
+reassignments.
+
+	{
+	  "domainName": "google.com",
+	  ...
+	}
 
 ## Breaking Changes in version 2
 
