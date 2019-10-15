@@ -522,16 +522,16 @@ suite('parseRawData', function(){
 			Name Server:jm2.dns.com
 			DNSSEC:unsigned
 			URL of the ICANN WHOIS Data Problem Reporting System: http://wdprs.internic.net/
-			>>> Last update of WHOIS database: 2018-12-23T14:08:06.00Z <<<: 
-			
+			>>> Last update of WHOIS database: 2018-12-23T14:08:06.00Z <<<:
+
 			For more information on Whois status codes, please visit https://icann.org/epp
-			
+
 			The Data in Paycenter's WHOIS database is provided by Paycenter
 			for information purposes, and to assist persons in obtaining
 			information about or related to a domain name registration record.
 			Paycenter does not guarantee its accuracy.  By submitting
 			a WHOIS query, you agree that you will use this Data only
-			for lawful purposes and that, 
+			for lawful purposes and that,
 			under no circumstances will you use this Data to:
 			(1) allow, enable, or otherwise support the transmission
 			of mass unsolicited, commercial advertising or solicitations
@@ -542,7 +542,7 @@ suite('parseRawData', function(){
 			By submitting this query, you agree to abide by this policy.!!
 		`)
 		const cleaned = parseRawData(rawData)
-		const correct = {
+		const correct = [ {
 			"domainName": "addlvr.com",
 			"registryDomainId": "2323887016_DOMAIN_COM-VRSN",
 			"registrarWhoisServer": "whois.paycenter.com.cn",
@@ -601,7 +601,7 @@ suite('parseRawData', function(){
 			"lastUpdateOfWhoisDatabase": "2018-12-23T14:08:06.00Z <<<:",
 			"forMoreInformationOnWhoisStatusCodesPleaseVisitHttps": "//icann.org/epp",
 			"underNoCircumstancesWillYouUseThisDataTo": ""
-		};
+		} ];
 		assert.deepEqual(cleaned, correct)
 	})
 
@@ -609,8 +609,8 @@ suite('parseRawData', function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('google.com')
 		// Since results will change, just check some relevant fields.
-		assert.equal(actual.domainName, "google.com")
-		assert.equal(actual.registrarIanaId, 292)
+		assert.equal(actual[0].domainName, "google.com")
+		assert.equal(actual[0].registrarIanaId, 292)
 	});
 
 	test('real ip lookups', async function(){
@@ -625,8 +625,9 @@ suite('parseRawData', function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('google.com', {verbose: true});
 		// Since results will change, just check some relevant fields.
-		assert.equal(actual[0].data.domainName, "GOOGLE.COM");
-		assert.equal(actual[0].data.registrarIanaId, 292);
+		console.log(actual);
+		assert.equal(actual[0].data[0].domainName, "GOOGLE.COM");
+		assert.equal(actual[0].data[0].registrarIanaId, 292);
 	});
 
 	test('verbose real ip lookups', async function(){
@@ -641,7 +642,8 @@ suite('parseRawData', function(){
 		// Geektools is slow.
 		this.timeout(6 * 1000)
 		const actual = await lookup('google.co.uk', {server:'geektools.com'})
-		assert(actual.nameServers.includes("ns1.google.com"))
+		console.log(actual);
+		assert(actual[0].nameServers.includes("ns1.google.com"))
 	});
 
 })
