@@ -625,7 +625,6 @@ suite('parseRawData', function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('google.com', {verbose: true});
 		// Since results will change, just check some relevant fields.
-		console.log(actual);
 		assert.equal(actual[0].data[0].domainName, "GOOGLE.COM");
 		assert.equal(actual[0].data[0].registrarIanaId, 292);
 	});
@@ -642,7 +641,6 @@ suite('parseRawData', function(){
 		// Geektools is slow.
 		this.timeout(6 * 1000)
 		const actual = await lookup('google.co.uk', {server:'geektools.com'})
-		console.log(actual);
 		assert(actual[0].nameServers.includes("ns1.google.com"))
 	});
 
