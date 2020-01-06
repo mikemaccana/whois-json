@@ -298,7 +298,223 @@ suite('parseRawData', function(){
 		};
 		assert.deepEqual(cleaned, correct)
 	})
-
+	test('IP Whois rawData when multiple records exist', function (){
+		const rawData = dedent(`
+			#
+			# ARIN WHOIS data and services are subject to the Terms of Use
+			# available at: https://www.arin.net/resources/registry/whois/tou/
+			#
+			# If you see inaccuracies in the results, please report at
+			# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/
+			#
+			# Copyright 1997-2019, American Registry for Internet Numbers, Ltd.
+			#
+			# start
+			
+			NetRange:       161.163.0.0 - 161.177.255.255
+			CIDR:           161.168.0.0/13, 161.163.0.0/16, 161.164.0.0/14, 161.176.0.0/15
+			NetName:        NETBLK-WAL-MART
+			NetHandle:      NET-161-163-0-0-1
+			Parent:         NET161 (NET-161-0-0-0-0)
+			NetType:        Direct Allocation
+			OriginAS:       AS32851
+			Organization:   Wal-Mart Stores, Inc. (WALMAR-Z)
+			RegDate:        1993-01-04
+			Updated:        2012-04-02
+			Ref:            https://rdap.arin.net/registry/ip/161.163.0.0
+			
+			
+			OrgName:        Wal-Mart Stores, Inc.
+			OrgId:          WALMAR-Z
+			Address:        702 S. W. 8th Street
+			City:           Bentonville
+			StateProv:      AR
+			PostalCode:     72712-0560
+			Country:        US
+			RegDate:        2011-05-17
+			Updated:        2011-09-24
+			Ref:            https://rdap.arin.net/registry/entity/WALMAR-Z
+			
+			
+			OrgAbuseHandle: WDM-ARIN
+			OrgAbuseName:   Wal-Mart DNS Management
+			OrgAbusePhone:  +1-479-277-4000
+			OrgAbuseEmail:  dns@wal-mart.com
+			OrgAbuseRef:    https://rdap.arin.net/registry/entity/WDM-ARIN
+			
+			OrgTechHandle: WDM-ARIN
+			OrgTechName:   Wal-Mart DNS Management
+			OrgTechPhone:  +1-479-277-4000
+			OrgTechEmail:  dns@wal-mart.com
+			OrgTechRef:    https://rdap.arin.net/registry/entity/WDM-ARIN
+			
+			# end
+			
+			
+			# start
+			
+			NetRange:       161.170.0.0 - 161.170.255.255
+			CIDR:           161.170.0.0/16
+			NetName:        NETBLK-WALMART
+			NetHandle:      NET-161-170-0-0-1
+			Parent:         NETBLK-WAL-MART (NET-161-163-0-0-1)
+			NetType:        Reassigned
+			OriginAS:
+			Organization:   Wal-Mart Stores, Inc. (WALMAR)
+			RegDate:        2003-07-08
+			Updated:        2003-07-08
+			Ref:            https://rdap.arin.net/registry/ip/161.170.0.0
+			
+			
+			OrgName:        Wal-Mart Stores, Inc.
+			OrgId:          WALMAR
+			Address:        702 S. W. 8th Street
+			City:           Bentonville
+			StateProv:      AR
+			PostalCode:     72712-0560
+			Country:        US
+			RegDate:        1991-02-08
+			Updated:        2011-09-24
+			Ref:            https://rdap.arin.net/registry/entity/WALMAR
+			
+			
+			OrgAbuseHandle: WDM-ARIN
+			OrgAbuseName:   Wal-Mart DNS Management
+			OrgAbusePhone:  +1-479-277-4000
+			OrgAbuseEmail:  dns@wal-mart.com
+			OrgAbuseRef:    https://rdap.arin.net/registry/entity/WDM-ARIN
+			
+			OrgTechHandle: WDM-ARIN
+			OrgTechName:   Wal-Mart DNS Management
+			OrgTechPhone:  +1-479-277-4000
+			OrgTechEmail:  dns@wal-mart.com
+			OrgTechRef:    https://rdap.arin.net/registry/entity/WDM-ARIN
+			
+			RAbuseHandle: ABUSE327-ARIN
+			RAbuseName:   Abuse
+			RAbusePhone:  +1-800-966-6546
+			RAbuseEmail:  abuse@walmart.com
+			RAbuseRef:    https://rdap.arin.net/registry/entity/ABUSE327-ARIN
+			
+			# end
+			
+			#
+			# ARIN WHOIS data and services are subject to the Terms of Use
+			# available at: https://www.arin.net/resources/registry/whois/tou/
+			#
+			# If you see inaccuracies in the results, please report at
+			# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/
+			#
+			# Copyright 1997-2019, American Registry for Internet Numbers, Ltd.
+			#
+		`)
+      const cleaned = parseRawData(rawData)
+      const incorrect =
+		{
+			"availableAt": "https://www.arin.net/resources/registry/whois/tou/ https://www.arin.net/resources/registry/whois/tou/",
+			"netRange": "161.163.0.0 - 161.177.255.255 161.170.0.0 - 161.170.255.255",
+			"cidr": "161.164.0.0/14, 161.176.0.0/15, 161.168.0.0/13, 161.163.0.0/16 161.170.0.0/16",
+			"netName": "NETBLK-WAL-MART NETBLK-WALMART",
+			"netHandle": "NET-161-163-0-0-1 NET-161-170-0-0-1",
+			"parent": "NET161 (NET-161-0-0-0-0) NETBLK-WAL-MART (NET-161-163-0-0-1)",
+			"netType": "Direct Allocation Reassigned",
+			"originAs": "AS32851",
+			"organization": "Wal-Mart Stores, Inc. (WALMAR-Z) Wal-Mart Stores, Inc. (WALMAR)",
+			"regDate": "1993-01-04 2011-05-17 2003-07-08 1991-02-08",
+			"updated": "2012-04-02 2011-09-24 2003-07-08 2011-09-24",
+			"ref": "https://rdap.arin.net/registry/ip/161.163.0.0 https://rdap.arin.net/registry/entity/WALMAR-Z https://rdap.arin.net/registry/ip/161.170.0.0 https://rdap.arin.net/registry/entity/WALMAR",
+			"orgName": "Wal-Mart Stores, Inc. Wal-Mart Stores, Inc.",
+			"orgId": "WALMAR-Z WALMAR",
+			"address": "702 S. W. 8th Street 702 S. W. 8th Street",
+			"city": "Bentonville Bentonville",
+			"stateProv": "AR AR",
+			"postalCode": "72712-0560 72712-0560",
+			"country": "US US",
+			"orgTechHandle": "WDM-ARIN WDM-ARIN",
+			"orgTechName": "Wal-Mart DNS Management Wal-Mart DNS Management",
+			"orgTechPhone": "+1-479-277-4000 +1-479-277-4000",
+			"orgTechEmail": "dns@wal-mart.com dns@wal-mart.com",
+			"orgTechRef": "https://rdap.arin.net/registry/entity/WDM-ARIN https://rdap.arin.net/registry/entity/WDM-ARIN",
+			"orgAbuseHandle": "WDM-ARIN WDM-ARIN",
+			"orgAbuseName": "Wal-Mart DNS Management Wal-Mart DNS Management",
+			"orgAbusePhone": "+1-479-277-4000 +1-479-277-4000",
+			"orgAbuseEmail": "dns@wal-mart.com dns@wal-mart.com",
+			"orgAbuseRef": "https://rdap.arin.net/registry/entity/WDM-ARIN https://rdap.arin.net/registry/entity/WDM-ARIN",
+			"rAbuseHandle": "ABUSE327-ARIN",
+			"rAbuseName": "Abuse",
+			"rAbusePhone": "+1-800-966-6546",
+			"rAbuseEmail": "abuse@walmart.com",
+			"rAbuseRef": "https://rdap.arin.net/registry/entity/ABUSE327-ARIN"
+		};
+    const correct = [
+		{
+			"netRange": "161.163.0.0 - 161.177.255.255",
+			"cidr": "161.164.0.0/14, 161.176.0.0/15, 161.168.0.0/13, 161.163.0.0/16",
+			"netName": "NETBLK-WAL-MART",
+			"netHandle": "NET-161-163-0-0-1",
+			"parent": "NET161 (NET-161-0-0-0-0)",
+			"netType": "Direct Allocation Reassigned",
+			"originAs": "AS32851",
+			"organization": "Wal-Mart Stores, Inc. (WALMAR-Z)",
+			"regDate": "1993-01-04 2011-05-17",
+			"updated": "2012-04-02 2011-09-24",
+			"ref": "https://rdap.arin.net/registry/ip/161.163.0.0 https://rdap.arin.net/registry/entity/WALMAR-Z",
+			"orgName": "Wal-Mart Stores, Inc.",
+			"orgId": "WALMAR-Z",
+			"address": "702 S. W. 8th Street",
+			"city": "Bentonville",
+			"stateProv": "AR",
+			"postalCode": "72712-0560",
+			"country": "US",
+			"orgTechHandle": "WDM-ARIN",
+			"orgTechName": "Wal-Mart DNS Management",
+			"orgTechPhone": "+1-479-277-4000",
+			"orgTechEmail": "dns@wal-mart.com",
+			"orgTechRef": "https://rdap.arin.net/registry/entity/WDM-ARIN",
+			"orgAbuseHandle": "WDM-ARIN",
+			"orgAbuseName": "Wal-Mart DNS Management",
+			"orgAbusePhone": "+1-479-277-4000",
+			"orgAbuseEmail": "dns@wal-mart.com",
+			"orgAbuseRef": "https://rdap.arin.net/registry/entity/WDM-ARIN"
+		},
+		{
+			"netRange": "161.170.0.0 - 161.170.255.255",
+			"cidr": "161.170.0.0/16",
+			"netName": "NETBLK-WALMART",
+			"netHandle": "NET-161-170-0-0-1",
+			"parent": "NETBLK-WAL-MART (NET-161-163-0-0-1)",
+			"netType": "Direct Allocation Reassigned",
+			"originAs": "AS32851",
+			"organization": "Wal-Mart Stores, Inc. (WALMAR)",
+			"regDate": "2003-07-08 1991-02-08",
+			"updated": "2003-07-08 2011-09-24",
+			"ref": "https://rdap.arin.net/registry/ip/161.170.0.0 https://rdap.arin.net/registry/entity/WALMAR",
+			"orgName": "Wal-Mart Stores, Inc.",
+			"orgId": "WALMAR",
+			"address": "702 S. W. 8th Street",
+			"city": "Bentonville",
+			"stateProv": "AR",
+			"postalCode": "72712-0560",
+			"country": "US",
+			"orgTechHandle": "WDM-ARIN",
+			"orgTechName": "Wal-Mart DNS Management",
+			"orgTechPhone": "+1-479-277-4000",
+			"orgTechEmail": "dns@wal-mart.com",
+			"orgTechRef": "https://rdap.arin.net/registry/entity/WDM-ARIN",
+			"orgAbuseHandle": "WDM-ARIN",
+			"orgAbuseName": "Wal-Mart DNS Management",
+			"orgAbusePhone": "+1-479-277-4000",
+			"orgAbuseEmail": "dns@wal-mart.com",
+			"orgAbuseRef": "https://rdap.arin.net/registry/entity/WDM-ARIN",
+			"rAbuseHandle": "ABUSE327-ARIN",
+			"rAbuseName": "Abuse",
+			"rAbusePhone": "+1-800-966-6546",
+			"rAbuseEmail": "abuse@walmart.com",
+			"rAbuseRef": "https://rdap.arin.net/registry/entity/ABUSE327-ARIN"
+		}];
+    assert.deepEqual(cleaned, correct)
+  }
+  )
 	test('real lookups', async function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('google.com')
@@ -316,3 +532,4 @@ suite('parseRawData', function(){
 
 
 })
+
