@@ -4,6 +4,8 @@ const os = require('os'),
 	htmlEntities = require('html-entities').XmlEntities;
 
 const DELIMITER = ':';
+const START = '#start';
+const END = '#end';
 
 var stripHTMLEntitites = function(rawData){
 	var entities = new htmlEntities();
@@ -38,8 +40,8 @@ var parseRawData = function(rawData) {
 
 		// colon space because that's the standard delimiter - not ':' as that's used in eg, http links
 		if ( line && line.includes(delimiter) ) {
+			
 			var lineParts = line.split(DELIMITER);
-
 			// 'Greater than' since lines often have more than one colon, eg values with URLs
 			if ( lineParts.length >= 2 ) {
 				var key = changeCase.camelCase(lineParts[0]),
