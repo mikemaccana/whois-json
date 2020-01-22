@@ -100,6 +100,10 @@ var parseRawData = function(rawData) {
 			}
 		}
 	});
+	
+	if (result.records.length == 0){
+		delete result.records;
+	}
 	return result;
 }
 

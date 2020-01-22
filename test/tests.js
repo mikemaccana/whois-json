@@ -1,20 +1,19 @@
 // Tests. Mocha TDD/assert style. See
 // http://visionmedia.github.com/mocha/
 // http://nodejs.org/docs/latest/api/assert.html
-
 const assert = require('assert'),
-	lookup = require('../index.js'),
-	parseRawData = require('../parse-raw-data.js'),
-	dedent = require('dedent-js'),
-	log = console.log.bind(console)
+    lookup = require('../index.js'),
+    parseRawData = require('../parse-raw-data.js'),
+    dedent = require('dedent-js'),
+    log = console.log.bind(console)
 
-const print = function(object){
-	return JSON.stringify.apply(JSON, [object, null, 2])
+const print = function(object) {
+    return JSON.stringify.apply(JSON, [object, null, 2])
 }
 
-suite('parseRawData', function(){
-	test('converts raw data into JS', function(){
-		const rawData = dedent(`
+suite('parseRawData', function() {
+    test('converts raw data into JS', function() {
+        const rawData = dedent(`
 			Domain Name: google.com
 			Registry Domain ID: 2138514_DOMAIN_COM-VRSN
 			Registrar WHOIS Server: whois.markmonitor.com
@@ -106,60 +105,60 @@ suite('parseRawData', function(){
 			For more information on Whois status codes, please visitconst
 			https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en
 			--`)
-		const cleaned = parseRawData(rawData)
-		const correct = {
-			"domainName": "google.com",
-			"registryDomainId": "2138514_DOMAIN_COM-VRSN",
-			"registrarWhoisServer": "whois.markmonitor.com",
-			"registrarUrl": "http://www.markmonitor.com",
-			"updatedDate": "2015-06-12T10:38:52-0700",
-			"creationDate": "1997-09-15T00:00:00-0700",
-			"registrarRegistrationExpirationDate": "2020-09-13T21:00:00-0700",
-			"registrar": "MarkMonitor, Inc.",
-			"registrarIanaId": "292",
-			"registrarAbuseContactEmail": "abusecomplaints@markmonitor.com",
-			"registrarAbuseContactPhone": "+1.2083895740",
-			"domainStatus": "clientUpdateProhibited (https://www.icann.org/epp#clientUpdateProhibited) clientTransferProhibited (https://www.icann.org/epp#clientTransferProhibited) clientDeleteProhibited (https://www.icann.org/epp#clientDeleteProhibited) serverUpdateProhibited (https://www.icann.org/epp#serverUpdateProhibited) serverTransferProhibited (https://www.icann.org/epp#serverTransferProhibited) serverDeleteProhibited (https://www.icann.org/epp#serverDeleteProhibited)",
-			"registrantName": "Dns Admin",
-			"registrantOrganization": "Google Inc.",
-			"registrantStreet": "Please contact contact-admin@google.com, 1600 Amphitheatre Parkway",
-			"registrantCity": "Mountain View",
-			"registrantStateProvince": "CA",
-			"registrantPostalCode": "94043",
-			"registrantCountry": "US",
-			"registrantPhone": "+1.6502530000",
-			"registrantFax": "+1.6506188571",
-			"registrantEmail": "dns-admin@google.com",
-			"adminName": "DNS Admin",
-			"adminOrganization": "Google Inc.",
-			"adminStreet": "1600 Amphitheatre Parkway",
-			"adminCity": "Mountain View",
-			"adminStateProvince": "CA",
-			"adminPostalCode": "94043",
-			"adminCountry": "US",
-			"adminPhone": "+1.6506234000",
-			"adminFax": "+1.6506188571",
-			"adminEmail": "dns-admin@google.com",
-			"techName": "DNS Admin",
-			"techOrganization": "Google Inc.",
-			"techStreet": "2400 E. Bayshore Pkwy",
-			"techCity": "Mountain View",
-			"techStateProvince": "CA",
-			"techPostalCode": "94043",
-			"techCountry": "US",
-			"techPhone": "+1.6503300100",
-			"techFax": "+1.6506181499",
-			"techEmail": "dns-admin@google.com",
-			"nameServer": "ns4.google.com ns2.google.com ns1.google.com ns3.google.com",
-			"dnssec": "unsigned",
-			"urlOfTheIcannWhoisDataProblemReportingSystem": "http://wdprs.internic.net/",
-			"lastUpdateOfWhoisDatabase": "2017-02-22T03:53:14-0800 <<<"
-		};
-		assert.deepEqual(cleaned, correct)
-	})
+        const cleaned = parseRawData(rawData)
+        const correct = {
+            "domainName": "google.com",
+            "registryDomainId": "2138514_DOMAIN_COM-VRSN",
+            "registrarWhoisServer": "whois.markmonitor.com",
+            "registrarUrl": "http://www.markmonitor.com",
+            "updatedDate": "2015-06-12T10:38:52-0700",
+            "creationDate": "1997-09-15T00:00:00-0700",
+            "registrarRegistrationExpirationDate": "2020-09-13T21:00:00-0700",
+            "registrar": "MarkMonitor, Inc.",
+            "registrarIanaId": "292",
+            "registrarAbuseContactEmail": "abusecomplaints@markmonitor.com",
+            "registrarAbuseContactPhone": "+1.2083895740",
+            "domainStatus": "clientUpdateProhibited (https://www.icann.org/epp#clientUpdateProhibited) clientTransferProhibited (https://www.icann.org/epp#clientTransferProhibited) clientDeleteProhibited (https://www.icann.org/epp#clientDeleteProhibited) serverUpdateProhibited (https://www.icann.org/epp#serverUpdateProhibited) serverTransferProhibited (https://www.icann.org/epp#serverTransferProhibited) serverDeleteProhibited (https://www.icann.org/epp#serverDeleteProhibited)",
+            "registrantName": "Dns Admin",
+            "registrantOrganization": "Google Inc.",
+            "registrantStreet": "Please contact contact-admin@google.com, 1600 Amphitheatre Parkway",
+            "registrantCity": "Mountain View",
+            "registrantStateProvince": "CA",
+            "registrantPostalCode": "94043",
+            "registrantCountry": "US",
+            "registrantPhone": "+1.6502530000",
+            "registrantFax": "+1.6506188571",
+            "registrantEmail": "dns-admin@google.com",
+            "adminName": "DNS Admin",
+            "adminOrganization": "Google Inc.",
+            "adminStreet": "1600 Amphitheatre Parkway",
+            "adminCity": "Mountain View",
+            "adminStateProvince": "CA",
+            "adminPostalCode": "94043",
+            "adminCountry": "US",
+            "adminPhone": "+1.6506234000",
+            "adminFax": "+1.6506188571",
+            "adminEmail": "dns-admin@google.com",
+            "techName": "DNS Admin",
+            "techOrganization": "Google Inc.",
+            "techStreet": "2400 E. Bayshore Pkwy",
+            "techCity": "Mountain View",
+            "techStateProvince": "CA",
+            "techPostalCode": "94043",
+            "techCountry": "US",
+            "techPhone": "+1.6503300100",
+            "techFax": "+1.6506181499",
+            "techEmail": "dns-admin@google.com",
+            "nameServer": "ns4.google.com ns2.google.com ns1.google.com ns3.google.com",
+            "dnssec": "unsigned",
+            "urlOfTheIcannWhoisDataProblemReportingSystem": "http://wdprs.internic.net/",
+            "lastUpdateOfWhoisDatabase": "2017-02-22T03:53:14-0800 <<<"
+        };
+        assert.deepEqual(cleaned, correct)
+    })
 
-	test('converts raw data (case with no spaces after delimiters) into JS', function(){
-		const rawData = dedent(`
+    test('converts raw data (case with no spaces after delimiters) into JS', function() {
+        const rawData = dedent(`
 			Domain Name:addlvr.com
 			Registry Domain ID:2323887016_DOMAIN_COM-VRSN
 			Registrar WHOIS Server:whois.paycenter.com.cn
@@ -235,71 +234,71 @@ suite('parseRawData', function(){
 			Paycenter reserves the right to modify these terms at any time.
 			By submitting this query, you agree to abide by this policy.!!
 		`)
-		const cleaned = parseRawData(rawData)
-		const correct = {
-			"domainName": "addlvr.com",
-			"registryDomainId": "2323887016_DOMAIN_COM-VRSN",
-			"registrarWhoisServer": "whois.paycenter.com.cn",
-			"registrarUrl": "http://www.xinnet.com",
-			"updatedDate": "2018-10-22T04:51:08.00Z",
-			"creationDate": "2018-10-21T02:11:14.00Z",
-			"registrarRegistrationExpirationDate": "2019-10-21T02:11:14.00Z",
-			"registrar": "XINNET TECHNOLOGY CORPORATION",
-			"registrarIanaId": "120",
-			"registrarAbuseContactEmail": "supervision@xinnet.com",
-			"registrarAbuseContactPhone": "+86.1087128064",
-			"reseller": "hefeixunyunwangluokejiyouxiangongsi",
-			"domainStatus": "ok https://www.icann.org/epp#ok",
-			"registryRegistrantId": "",
-			"registrantName": "",
-			"registrantOrganization": "",
-			"registrantStreet": "",
-			"registrantCity": "",
-			"registrantStateProvince": "",
-			"registrantPostalCode": "",
-			"registrantCountry": "",
-			"registrantPhone": "",
-			"registrantPhoneExt": "",
-			"registrantFax": "",
-			"registrantFaxExt": "",
-			"registrantEmail": "",
-			"registryAdminId": "",
-			"adminName": "",
-			"adminOrganization": "",
-			"adminStreet": "",
-			"adminCity": "",
-			"adminStateProvince": "",
-			"adminPostalCode": "",
-			"adminCountry": "",
-			"adminPhone": "",
-			"adminPhoneExt": "",
-			"adminFax": "",
-			"adminFaxExt": "",
-			"adminEmail": "",
-			"registryTechId": "",
-			"techName": "",
-			"techOrganization": "",
-			"techStreet": "",
-			"techCity": "",
-			"techStateProvince": "",
-			"techPostalCode": "",
-			"techCountry": "",
-			"techPhone": "",
-			"techPhoneExt": "",
-			"techFax": "",
-			"techFaxExt": "",
-			"techEmail": "",
-			"nameServer": "jm1.dns.com jm2.dns.com",
-			"dnssec": "unsigned",
-			"urlOfTheIcannWhoisDataProblemReportingSystem": "http://wdprs.internic.net/",
-			"lastUpdateOfWhoisDatabase": "2018-12-23T14:08:06.00Z <<<:",
-			"forMoreInformationOnWhoisStatusCodesPleaseVisitHttps": "//icann.org/epp",
-			"underNoCircumstancesWillYouUseThisDataTo": ""
-		};
-		assert.deepEqual(cleaned, correct)
-	})
-	test('IP Whois rawData when multiple records exist', function (){
-		const rawData = dedent(`
+        const cleaned = parseRawData(rawData)
+        const correct = {
+            "domainName": "addlvr.com",
+            "registryDomainId": "2323887016_DOMAIN_COM-VRSN",
+            "registrarWhoisServer": "whois.paycenter.com.cn",
+            "registrarUrl": "http://www.xinnet.com",
+            "updatedDate": "2018-10-22T04:51:08.00Z",
+            "creationDate": "2018-10-21T02:11:14.00Z",
+            "registrarRegistrationExpirationDate": "2019-10-21T02:11:14.00Z",
+            "registrar": "XINNET TECHNOLOGY CORPORATION",
+            "registrarIanaId": "120",
+            "registrarAbuseContactEmail": "supervision@xinnet.com",
+            "registrarAbuseContactPhone": "+86.1087128064",
+            "reseller": "hefeixunyunwangluokejiyouxiangongsi",
+            "domainStatus": "ok https://www.icann.org/epp#ok",
+            "registryRegistrantId": "",
+            "registrantName": "",
+            "registrantOrganization": "",
+            "registrantStreet": "",
+            "registrantCity": "",
+            "registrantStateProvince": "",
+            "registrantPostalCode": "",
+            "registrantCountry": "",
+            "registrantPhone": "",
+            "registrantPhoneExt": "",
+            "registrantFax": "",
+            "registrantFaxExt": "",
+            "registrantEmail": "",
+            "registryAdminId": "",
+            "adminName": "",
+            "adminOrganization": "",
+            "adminStreet": "",
+            "adminCity": "",
+            "adminStateProvince": "",
+            "adminPostalCode": "",
+            "adminCountry": "",
+            "adminPhone": "",
+            "adminPhoneExt": "",
+            "adminFax": "",
+            "adminFaxExt": "",
+            "adminEmail": "",
+            "registryTechId": "",
+            "techName": "",
+            "techOrganization": "",
+            "techStreet": "",
+            "techCity": "",
+            "techStateProvince": "",
+            "techPostalCode": "",
+            "techCountry": "",
+            "techPhone": "",
+            "techPhoneExt": "",
+            "techFax": "",
+            "techFaxExt": "",
+            "techEmail": "",
+            "nameServer": "jm1.dns.com jm2.dns.com",
+            "dnssec": "unsigned",
+            "urlOfTheIcannWhoisDataProblemReportingSystem": "http://wdprs.internic.net/",
+            "lastUpdateOfWhoisDatabase": "2018-12-23T14:08:06.00Z <<<:",
+            "forMoreInformationOnWhoisStatusCodesPleaseVisitHttps": "//icann.org/epp",
+            "underNoCircumstancesWillYouUseThisDataTo": ""
+        };
+        assert.deepEqual(cleaned, correct)
+    })
+    test('IP Whois rawData when multiple records exist', function() {
+        const rawData = dedent(`
 			#
 			# ARIN WHOIS data and services are subject to the Terms of Use
 			# available at: https://www.arin.net/resources/registry/whois/tou/
@@ -408,128 +407,215 @@ suite('parseRawData', function(){
 			# Copyright 1997-2019, American Registry for Internet Numbers, Ltd.
 			#
 		`)
-      const cleaned = parseRawData(rawData)
-      const incorrect =
-		{
-			"availableAt": "https://www.arin.net/resources/registry/whois/tou/ https://www.arin.net/resources/registry/whois/tou/",
-			"netRange": "161.163.0.0 - 161.177.255.255 161.170.0.0 - 161.170.255.255",
-			"cidr": "161.164.0.0/14, 161.176.0.0/15, 161.168.0.0/13, 161.163.0.0/16 161.170.0.0/16",
-			"netName": "NETBLK-WAL-MART NETBLK-WALMART",
-			"netHandle": "NET-161-163-0-0-1 NET-161-170-0-0-1",
-			"parent": "NET161 (NET-161-0-0-0-0) NETBLK-WAL-MART (NET-161-163-0-0-1)",
-			"netType": "Direct Allocation Reassigned",
-			"originAs": "AS32851",
-			"organization": "Wal-Mart Stores, Inc. (WALMAR-Z) Wal-Mart Stores, Inc. (WALMAR)",
-			"regDate": "1993-01-04 2011-05-17 2003-07-08 1991-02-08",
-			"updated": "2012-04-02 2011-09-24 2003-07-08 2011-09-24",
-			"ref": "https://rdap.arin.net/registry/ip/161.163.0.0 https://rdap.arin.net/registry/entity/WALMAR-Z https://rdap.arin.net/registry/ip/161.170.0.0 https://rdap.arin.net/registry/entity/WALMAR",
-			"orgName": "Wal-Mart Stores, Inc. Wal-Mart Stores, Inc.",
-			"orgId": "WALMAR-Z WALMAR",
-			"address": "702 S. W. 8th Street 702 S. W. 8th Street",
-			"city": "Bentonville Bentonville",
-			"stateProv": "AR AR",
-			"postalCode": "72712-0560 72712-0560",
-			"country": "US US",
-			"orgTechHandle": "WDM-ARIN WDM-ARIN",
-			"orgTechName": "Wal-Mart DNS Management Wal-Mart DNS Management",
-			"orgTechPhone": "+1-479-277-4000 +1-479-277-4000",
-			"orgTechEmail": "dns@wal-mart.com dns@wal-mart.com",
-			"orgTechRef": "https://rdap.arin.net/registry/entity/WDM-ARIN https://rdap.arin.net/registry/entity/WDM-ARIN",
-			"orgAbuseHandle": "WDM-ARIN WDM-ARIN",
-			"orgAbuseName": "Wal-Mart DNS Management Wal-Mart DNS Management",
-			"orgAbusePhone": "+1-479-277-4000 +1-479-277-4000",
-			"orgAbuseEmail": "dns@wal-mart.com dns@wal-mart.com",
-			"orgAbuseRef": "https://rdap.arin.net/registry/entity/WDM-ARIN https://rdap.arin.net/registry/entity/WDM-ARIN",
-			"rAbuseHandle": "ABUSE327-ARIN",
-			"rAbuseName": "Abuse",
-			"rAbusePhone": "+1-800-966-6546",
-			"rAbuseEmail": "abuse@walmart.com",
-			"rAbuseRef": "https://rdap.arin.net/registry/entity/ABUSE327-ARIN"
-		};
-    const correct = [
-		{
-			"netRange": "161.163.0.0 - 161.177.255.255",
-			"cidr": "161.164.0.0/14, 161.176.0.0/15, 161.168.0.0/13, 161.163.0.0/16",
-			"netName": "NETBLK-WAL-MART",
-			"netHandle": "NET-161-163-0-0-1",
-			"parent": "NET161 (NET-161-0-0-0-0)",
-			"netType": "Direct Allocation Reassigned",
-			"originAs": "AS32851",
-			"organization": "Wal-Mart Stores, Inc. (WALMAR-Z)",
-			"regDate": "1993-01-04 2011-05-17",
-			"updated": "2012-04-02 2011-09-24",
-			"ref": "https://rdap.arin.net/registry/ip/161.163.0.0 https://rdap.arin.net/registry/entity/WALMAR-Z",
-			"orgName": "Wal-Mart Stores, Inc.",
-			"orgId": "WALMAR-Z",
-			"address": "702 S. W. 8th Street",
-			"city": "Bentonville",
-			"stateProv": "AR",
-			"postalCode": "72712-0560",
-			"country": "US",
-			"orgTechHandle": "WDM-ARIN",
-			"orgTechName": "Wal-Mart DNS Management",
-			"orgTechPhone": "+1-479-277-4000",
-			"orgTechEmail": "dns@wal-mart.com",
-			"orgTechRef": "https://rdap.arin.net/registry/entity/WDM-ARIN",
-			"orgAbuseHandle": "WDM-ARIN",
-			"orgAbuseName": "Wal-Mart DNS Management",
-			"orgAbusePhone": "+1-479-277-4000",
-			"orgAbuseEmail": "dns@wal-mart.com",
-			"orgAbuseRef": "https://rdap.arin.net/registry/entity/WDM-ARIN"
-		},
-		{
-			"netRange": "161.170.0.0 - 161.170.255.255",
-			"cidr": "161.170.0.0/16",
-			"netName": "NETBLK-WALMART",
-			"netHandle": "NET-161-170-0-0-1",
-			"parent": "NETBLK-WAL-MART (NET-161-163-0-0-1)",
-			"netType": "Direct Allocation Reassigned",
-			"originAs": "AS32851",
-			"organization": "Wal-Mart Stores, Inc. (WALMAR)",
-			"regDate": "2003-07-08 1991-02-08",
-			"updated": "2003-07-08 2011-09-24",
-			"ref": "https://rdap.arin.net/registry/ip/161.170.0.0 https://rdap.arin.net/registry/entity/WALMAR",
-			"orgName": "Wal-Mart Stores, Inc.",
-			"orgId": "WALMAR",
-			"address": "702 S. W. 8th Street",
-			"city": "Bentonville",
-			"stateProv": "AR",
-			"postalCode": "72712-0560",
-			"country": "US",
-			"orgTechHandle": "WDM-ARIN",
-			"orgTechName": "Wal-Mart DNS Management",
-			"orgTechPhone": "+1-479-277-4000",
-			"orgTechEmail": "dns@wal-mart.com",
-			"orgTechRef": "https://rdap.arin.net/registry/entity/WDM-ARIN",
-			"orgAbuseHandle": "WDM-ARIN",
-			"orgAbuseName": "Wal-Mart DNS Management",
-			"orgAbusePhone": "+1-479-277-4000",
-			"orgAbuseEmail": "dns@wal-mart.com",
-			"orgAbuseRef": "https://rdap.arin.net/registry/entity/WDM-ARIN",
-			"rAbuseHandle": "ABUSE327-ARIN",
-			"rAbuseName": "Abuse",
-			"rAbusePhone": "+1-800-966-6546",
-			"rAbuseEmail": "abuse@walmart.com",
-			"rAbuseRef": "https://rdap.arin.net/registry/entity/ABUSE327-ARIN"
-		}];
-    assert.deepEqual(cleaned, correct)
-  }
-  )
-	test('real lookups', async function(){
-		this.timeout(3 * 1000)
-		const actual = await lookup('google.com')
-		// Since results will change, just check some relevant fields.
-		assert.equal(actual.domainName, "google.com")
-		assert.equal(actual.registrarIanaId, 292)
-	})	
+        const cleaned = parseRawData(rawData)
+        const incorrect = {
+            "availableAt": "https://www.arin.net/resources/registry/whois/tou/ https://www.arin.net/resources/registry/whois/tou/",
+            "netRange": "161.163.0.0 - 161.177.255.255 161.170.0.0 - 161.170.255.255",
+            "cidr": "161.164.0.0/14, 161.176.0.0/15, 161.168.0.0/13, 161.163.0.0/16 161.170.0.0/16",
+            "netName": "NETBLK-WAL-MART NETBLK-WALMART",
+            "netHandle": "NET-161-163-0-0-1 NET-161-170-0-0-1",
+            "parent": "NET161 (NET-161-0-0-0-0) NETBLK-WAL-MART (NET-161-163-0-0-1)",
+            "netType": "Direct Allocation Reassigned",
+            "originAs": "AS32851",
+            "organization": "Wal-Mart Stores, Inc. (WALMAR-Z) Wal-Mart Stores, Inc. (WALMAR)",
+            "regDate": "1993-01-04 2011-05-17 2003-07-08 1991-02-08",
+            "updated": "2012-04-02 2011-09-24 2003-07-08 2011-09-24",
+            "ref": "https://rdap.arin.net/registry/ip/161.163.0.0 https://rdap.arin.net/registry/entity/WALMAR-Z https://rdap.arin.net/registry/ip/161.170.0.0 https://rdap.arin.net/registry/entity/WALMAR",
+            "orgName": "Wal-Mart Stores, Inc. Wal-Mart Stores, Inc.",
+            "orgId": "WALMAR-Z WALMAR",
+            "address": "702 S. W. 8th Street 702 S. W. 8th Street",
+            "city": "Bentonville Bentonville",
+            "stateProv": "AR AR",
+            "postalCode": "72712-0560 72712-0560",
+            "country": "US US",
+            "orgTechHandle": "WDM-ARIN WDM-ARIN",
+            "orgTechName": "Wal-Mart DNS Management Wal-Mart DNS Management",
+            "orgTechPhone": "+1-479-277-4000 +1-479-277-4000",
+            "orgTechEmail": "dns@wal-mart.com dns@wal-mart.com",
+            "orgTechRef": "https://rdap.arin.net/registry/entity/WDM-ARIN https://rdap.arin.net/registry/entity/WDM-ARIN",
+            "orgAbuseHandle": "WDM-ARIN WDM-ARIN",
+            "orgAbuseName": "Wal-Mart DNS Management Wal-Mart DNS Management",
+            "orgAbusePhone": "+1-479-277-4000 +1-479-277-4000",
+            "orgAbuseEmail": "dns@wal-mart.com dns@wal-mart.com",
+            "orgAbuseRef": "https://rdap.arin.net/registry/entity/WDM-ARIN https://rdap.arin.net/registry/entity/WDM-ARIN",
+            "rAbuseHandle": "ABUSE327-ARIN",
+            "rAbuseName": "Abuse",
+            "rAbusePhone": "+1-800-966-6546",
+            "rAbuseEmail": "abuse@walmart.com",
+            "rAbuseRef": "https://rdap.arin.net/registry/entity/ABUSE327-ARIN"
+        };
+        const correct = {
+            "records": [{
+                    "netRange": "161.163.0.0 - 161.177.255.255",
+                    "cidr": "161.163.0.0/16, 161.168.0.0/13, 161.164.0.0/14, 161.176.0.0/15",
+                    "netName": "NETBLK-WAL-MART",
+                    "netHandle": "NET-161-163-0-0-1",
+                    "parent": "NET161 (NET-161-0-0-0-0)",
+                    "netType": "Direct Allocation",
+                    "originAs": "AS32851",
+                    "organization": "Wal-Mart Stores, Inc. (WALMAR-Z)",
+                    "regDate": "1993-01-04 2011-05-17",
+                    "updated": "2012-04-02 2011-09-24",
+                    "ref": "https://rdap.arin.net/registry/ip/161.163.0.0   https://rdap.arin.net/registry/entity/WALMAR-Z  ",
+                    "orgName": "Wal-Mart Stores, Inc.",
+                    "orgId": "WALMAR-Z",
+                    "address": "702 S. W. 8th Street",
+                    "city": "Bentonville",
+                    "stateProv": "AR",
+                    "postalCode": "72712-0560",
+                    "country": "US",
+                    "orgAbuseHandle": "WDM-ARIN",
+                    "orgAbuseName": "Wal-Mart DNS Management",
+                    "orgAbusePhone": "+1-479-277-4000",
+                    "orgAbuseEmail": "dns@wal-mart.com",
+                    "orgAbuseRef": "https://rdap.arin.net/registry/entity/WDM-ARIN ",
+                    "orgTechHandle": "WDM-ARIN",
+                    "orgTechName": "Wal-Mart DNS Management",
+                    "orgTechPhone": "+1-479-277-4000",
+                    "orgTechEmail": "dns@wal-mart.com",
+                    "orgTechRef": "https://rdap.arin.net/registry/entity/WDM-ARIN "
+                },
+                {
+                    "netRange": "161.170.0.0 - 161.170.255.255",
+                    "cidr": "161.170.0.0/16",
+                    "netName": "NETBLK-WALMART",
+                    "netHandle": "NET-161-170-0-0-1",
+                    "parent": "NETBLK-WAL-MART (NET-161-163-0-0-1)",
+                    "netType": "Reassigned",
+                    "originAs": "",
+                    "organization": "Wal-Mart Stores, Inc. (WALMAR)",
+                    "regDate": "2003-07-08 1991-02-08",
+                    "updated": "2003-07-08 2011-09-24",
+                    "ref": "https://rdap.arin.net/registry/ip/161.170.0.0   https://rdap.arin.net/registry/entity/WALMAR  ",
+                    "orgName": "Wal-Mart Stores, Inc.",
+                    "orgId": "WALMAR",
+                    "address": "702 S. W. 8th Street",
+                    "city": "Bentonville",
+                    "stateProv": "AR",
+                    "postalCode": "72712-0560",
+                    "country": "US",
+                    "orgAbuseHandle": "WDM-ARIN",
+                    "orgAbuseName": "Wal-Mart DNS Management",
+                    "orgAbusePhone": "+1-479-277-4000",
+                    "orgAbuseEmail": "dns@wal-mart.com",
+                    "orgAbuseRef": "https://rdap.arin.net/registry/entity/WDM-ARIN ",
+                    "orgTechHandle": "WDM-ARIN",
+                    "orgTechName": "Wal-Mart DNS Management",
+                    "orgTechPhone": "+1-479-277-4000",
+                    "orgTechEmail": "dns@wal-mart.com",
+                    "orgTechRef": "https://rdap.arin.net/registry/entity/WDM-ARIN ",
+                    "rAbuseHandle": "ABUSE327-ARIN",
+                    "rAbuseName": "Abuse",
+                    "rAbusePhone": "+1-800-966-6546",
+                    "rAbuseEmail": "abuse@walmart.com",
+                    "rAbuseRef": "https://rdap.arin.net/registry/entity/ABUSE327-ARIN "
+                }
+            ],
+            "availableAt": "https://www.arin.net/resources/registry/whois/tou/ # # If you see inaccuracies in the results, please report at # https://www.arin.net/resources/registry/whois/inaccuracy_reporting/ # # Copyright 1997-2020, American Registry for Internet Numbers, Ltd. #    https://www.arin.net/resources/registry/whois/tou/ # # If you see inaccuracies in the results, please report at # https://www.arin.net/resources/registry/whois/inaccuracy_reporting/ # # Copyright 1997-2020, American Registry for Internet Numbers, Ltd. #  "
+        };
+        assert.deepEqual(cleaned, correct)
+    })
+    test('Domain Whois when the values are spread across multiple lines', function() {
+        const rawData = dedent(`
+		This Registry database contains ONLY .EDU domains.
+		The data in the EDUCAUSE Whois database is provided
+		by EDUCAUSE for information purposes in order to
+		assist in the process of obtaining information about
+		or related to .edu domain registration records.
+		
+		The EDUCAUSE Whois database is authoritative for the
+		.EDU domain.
+		
+		A Web interface for the .EDU EDUCAUSE Whois Server is
+		available at: http://whois.educause.edu
+		
+		By submitting a Whois query, you agree that this information
+		will not be used to allow, enable, or otherwise support
+		the transmission of unsolicited commercial advertising or
+		solicitations via e-mail. The use of electronic processes to
+		harvest information from this server is generally prohibited
+		except as reasonably necessary to register or modify .edu
+		domain names.
+		
+		-------------------------------------------------------------
+		
+		Domain Name: AUD.EDU
+		
+		Registrant:
+		The American University in Dubai
+		P.O.Box 28282
+		Dubai, AE 28282
+		United Arab Emirates
+		
+		Administrative Contact:
+		Roobi Baby
+		American University in Dubai
+		P.O. Box 28282
+		Dubai, AE 28282
+		United Arab Emirates
+		+971.43183125
+		pbroobi@aud.edu
+		
+		Technical Contact:
+		Roobi Baby
+		American University in Dubai
+		P.O. Box 28282
+		Dubai, AE 28282
+		United Arab Emirates
+		+971.43183125
+		pbroobi@aud.edu
+		
+		
+		Name Servers:
+		NS4.P05.DYNECT.NET
+		NS3.P05.DYNECT.NET
+		NS2.P05.DYNECT.NET
+		NS1.P05.DYNECT.NET
+		
+		Domain record activated: 02-Dec-1997
+		Domain record last updated: 09-Aug-2018
+		Domain expires: 31-Jul-2021
+		`)
+        const cleaned = parseRawData(rawData)
+        const incorrect = {
+            "availableAt": "http://whois.educause.edu  By submitting a Whois query, you agree that this information will not be used to allow, enable, or otherwise support the transmission of unsolicited commercial advertising or solicitations via e-mail.  The use of electronic processes to harvest information from this server is generally prohibited except as reasonably necessary to register or modify .edu domain names.  -------------------------------------------------------------",
+            "domainName": "AUD.EDU",
+            "domainRecordActivated": "02-Dec-1997",
+			"domainRecordLastUpdated": "09-Aug-2018",
+			"domainExpires": "31-Jul-2021 "           
+        };
+        const correct = {
+              "server": "whois.educause.edu",
+              "data":
+              {
+                "availableAt": "http://whois.educause.edu  By submitting a Whois query, you agree that this information will not be used to allow, enable, or otherwise support the transmission of unsolicited commercial advertising or solicitations via e-mail.  The use of electronic processes to harvest information from this server is generally prohibited except as reasonably necessary to register or modify .edu domain names.  ------------------------------------------------------------- ",
+                "domainName": "AUD.EDU ",
+                "registrant": " The American University in Dubai P.O.Box 28282 Dubai, AE 28282 United Arab Emirates ",
+                "administrativeContact": " Roobi Baby American University in Dubai P.O. Box 28282 Dubai, AE 28282 United Arab Emirates +971.43183125 pbroobi@aud.edu ",
+                "technicalContact": " Roobi Baby American University in Dubai P.O. Box 28282 Dubai, AE 28282 United Arab Emirates +971.43183125 pbroobi@aud.edu ",
+                "nameServers": " NS3.P05.DYNECT.NET NS4.P05.DYNECT.NET NS2.P05.DYNECT.NET NS1.P05.DYNECT.NET ",
+                "domainRecordActivated": "02-Dec-1997",
+                "domainRecordLastUpdated": "09-Aug-2018",
+                "domainExpires": "31-Jul-2021 "
+              }
+            };
+        assert.deepEqual(cleaned, correct)
+    })
+    
+	test('real lookups', async function() {
+        this.timeout(3 * 1000)
+        const actual = await lookup('google.com')
+        // Since results will change, just check some relevant fields.
+        assert.equal(actual.domainName, "google.com")
+        assert.equal(actual.registrarIanaId, 292)
+    })
 
-	test('Geektools output with indented values and HTML entities', async function(){
-		// Geektools is slow.
-		this.timeout(6 * 1000)
-		const actual = await lookup('google.co.uk', {server:'geektools.com'})
-		assert(actual.nameServers.includes("ns1.google.com"))
-	})
-
-
+    test('Geektools output with indented values and HTML entities', async function() {
+        // Geektools is slow.
+        this.timeout(6 * 1000)
+        const actual = await lookup('google.co.uk', {
+            server: 'geektools.com'
+        })
+        assert(actual.nameServers.includes("ns1.google.com"))
+    })
 })
-
