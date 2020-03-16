@@ -1,26 +1,28 @@
-var util = require('util'),
-	whois = require('whois')
-	log = console.log.bind(console),
-	parseRawData = require('./parse-raw-data.js')
+// Externals
+const util = require('util')
+const whois = require('whois')
 
-var lookup = util.promisify(whois.lookup);
+// Internal Libs
+const parseRawData = require('./lib/parse-raw-data.js')
 
-module.exports = async function(domain, options){
+const lookup = util.promisify(whois.lookup)
 
-	var rawData = await lookup(domain, options || {})	
+module.exports = async function (domain, options) {
 
-	var result = {};
+	const rawData = await lookup(domain, options || {})
 
-	if ( typeof rawData === 'object' ) {
-		result = rawData.map(function(data) {
-			data.data = parseRawData(data.data);
-			return data;
-		});
+	let result = {}
+
+	if (typeof rawData === 'object') {
+		result = rawData.map(function (data) {
+			data.data = parseRawData(data.data)
+			return data
+		})
 	} else {
-		result = parseRawData(rawData);
+		result = parseRawData(rawData)
 	}
 
-	return result;
+	return result
 }
 
 
