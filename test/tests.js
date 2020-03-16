@@ -4,16 +4,16 @@
 
 const assert = require('assert'),
 	lookup = require('../index.js'),
-	parseRawData = require('../parse-raw-data.js'),
+	parseRawData = require('../lib/parse-raw-data.js'),
 	dedent = require('dedent-js'),
 	log = console.log.bind(console)
 
-const print = function(object){
+const print = function (object) {
 	return JSON.stringify.apply(JSON, [object, null, 2])
 }
 
-suite('parseRawData', function(){
-	test('converts raw data into JS', function(){
+suite('parseRawData', function () {
+	test('converts raw data into JS', function () {
 		const rawData = dedent(`
 			Domain Name: google.com
 			Registry Domain ID: 2138514_DOMAIN_COM-VRSN
@@ -158,7 +158,7 @@ suite('parseRawData', function(){
 		assert.deepEqual(cleaned, correct)
 	})
 
-	test('converts raw data (case with no spaces after delimiters) into JS', function(){
+	test('converts raw data (case with no spaces after delimiters) into JS', function () {
 		const rawData = dedent(`
 			Domain Name:addlvr.com
 			Registry Domain ID:2323887016_DOMAIN_COM-VRSN
@@ -298,8 +298,64 @@ suite('parseRawData', function(){
 		};
 		assert.deepEqual(cleaned, correct)
 	})
-	test('IP Whois rawData when multiple records exist', function (){
+	test('converts raw data (case with special structures [e.g. JPRS whois]) into JS', function () {
 		const rawData = dedent(`
+			[ JPRS database provides information on network administration. Its use is    ]
+			[ restricted to network administration purposes. For further information,     ]
+			[ use 'whois -h whois.jprs.jp help'. To suppress Japanese output, add'/e'     ]
+			[ at the end of command, e.g. 'whois -h whois.jprs.jp xxx/e'.                 ]
+			
+			Domain Information:
+			[Domain Name]                   VISUMO.JP
+			
+			[Registrant]                    ECBEING CORP.
+			
+			[Name Server]                   ns-1100.awsdns-09.org
+			[Name Server]                   ns-482.awsdns-60.com
+			[Name Server]                   ns-1657.awsdns-15.co.uk
+			[Name Server]                   ns-662.awsdns-18.net
+			[Signing Key]                   
+			
+			[Created on]                    2017/12/08
+			[Expires on]                    2020/12/31
+			[Status]                        Active
+			[Last Updated]                  2020/01/01 01:05:08 (JST)
+			
+			Contact Information:
+			[Name]                          ECBEING CORP.
+			[Email]                         kwatanab@ecbeing.co.jp
+			[Web Page]                       
+			[Postal code]                   150-0002
+			[Postal Address]                2-15-1 Shibuya, Shibuya-ku, Tokyo, 150-0002 JP
+			[Phone]                         03-3486-6224
+			[Fax] 		
+		`)
+		const cleaned = parseRawData(rawData)
+		const correct = {
+			'jprsDatabaseProvidesInformationOnNetworkAdministrationItsUseIs': '',
+			'restrictedToNetworkAdministrationPurposesForFurtherInformation': '',
+			'useWhoisHWhoisJprsJpHelpToSuppressJapaneseOutputAddE': '',
+			'atTheEndOfCommandEGWhoisHWhoisJprsJpXxxE': '',
+			'domainName': 'VISUMO.JP',
+			'registrant': 'ECBEING CORP.',
+			'nameServer': 'ns-1100.awsdns-09.org ns-482.awsdns-60.com ns-1657.awsdns-15.co.uk ns-662.awsdns-18.net',
+			'signingKey': '',
+			'createdOn': '2017/12/08',
+			'expiresOn': '2020/12/31',
+			'status': 'Active',
+			'lastUpdated': '2020/01/01 01:05:08 (JST)',
+			'name': 'ECBEING CORP.',
+			'email': 'kwatanab@ecbeing.co.jp',
+			'webPage': '',
+			'postalCode': '150-0002',
+			'postalAddress': '2-15-1 Shibuya, Shibuya-ku, Tokyo, 150-0002 JP',
+			'phone': '03-3486-6224',
+			'fax': ''
+		}
+		assert.deepEqual(cleaned, correct)
+	})
+	test('IP Whois rawData when multiple records exist', function () {
+			const rawData = dedent(`
 			#
 			# ARIN WHOIS data and services are subject to the Terms of Use
 			# available at: https://www.arin.net/resources/registry/whois/tou/
@@ -519,17 +575,16 @@ suite('parseRawData', function(){
 		this.timeout(3 * 1000)
 		const actual = await lookup('google.com')
 		// Since results will change, just check some relevant fields.
-		assert.equal(actual.domainName, "google.com")
+		assert.equal(actual.domainName, 'google.com')
 		assert.equal(actual.registrarIanaId, 292)
-	})	
-
-	test('Geektools output with indented values and HTML entities', async function(){
-		// Geektools is slow.
-		this.timeout(6 * 1000)
-		const actual = await lookup('google.co.uk', {server:'geektools.com'})
-		assert(actual.nameServers.includes("ns1.google.com"))
 	})
 
+	test('Geektools output with indented values and HTML entities', async function () {
+		// Geektools is slow.
+		this.timeout(6 * 1000)
+		const actual = await lookup('google.co.uk', { server: 'geektools.com' })
+		assert(actual.nameServers.includes('ns1.google.com'))
+	})
 
 })
 
