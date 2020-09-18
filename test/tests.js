@@ -298,6 +298,60 @@ suite('parseRawData', function(){
 		};
 		assert.deepEqual(cleaned, correct)
 	})
+
+	test('converts raw data from JPRS (Japan Registry Services) database', function(){
+		const rawData = dedent(`
+			[ JPRS database provides information on network administration. Its use is    ]
+			[ restricted to network administration purposes. For further information,     ]
+			[ use 'whois -h whois.jprs.jp help'. To suppress Japanese output, add'/e'     ]
+			[ at the end of command, e.g. 'whois -h whois.jprs.jp xxx/e'.                 ]
+			
+			Domain Information:
+			[Domain Name]                   GOOGLE.JP
+			
+			[Registrant]                    Google LLC
+			
+			[Name Server]                   ns1.google.com
+			[Name Server]                   ns2.google.com
+			[Name Server]                   ns3.google.com
+			[Name Server]                   ns4.google.com
+			[Signing Key]                   
+			
+			[Created on]                    2005/05/30
+			[Expires on]                    2021/05/31
+			[Status]                        Active
+			[Last Updated]                  2020/08/06 13:20:20 (JST)
+			
+			Contact Information:
+			[Name]                          Google LLC
+			[Email]                         dns-admin@google.com
+			[Web Page]                       
+			[Postal code]                   94043
+			[Postal Address]                Mountain View
+											1600 Amphitheatre Parkway
+											CA
+			[Phone]                         16502530000
+			[Fax]                           16502530001
+		`)
+		const cleaned = parseRawData(rawData)
+		const correct = {
+			"domainName": "GOOGLE.JP",
+			"registrant": "Google LLC",
+			"nameServer": "ns1.google.com ns2.google.com ns3.google.com ns4.google.com",
+			"createdOn": "2005/05/30",
+			"expiresOn": "2021/05/31",
+			"status": "Active",
+			"lastUpdated": "2020/08/06 13:20:20 (JST)",
+			"name": "Google LLC",
+			"email": "dns-admin@google.com",
+			"postalCode": "94043",
+			"postalAddress": "Mountain View",
+			"phone": "16502530000",
+			"fax": "16502530001"
+		};
+		assert.deepEqual(cleaned, correct)
+	})
+
 	test('IP Whois rawData when multiple records exist', function (){
 		const rawData = dedent(`
 			#
