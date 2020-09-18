@@ -4,6 +4,7 @@ const os = require('os'),
 	htmlEntities = require('html-entities').XmlEntities;
 
 const DELIMITER = ':';
+const JPRS_DATABASE_HEADER = '[ JPRS database provides information on network administration. Its use is    ]';
 
 var stripHTMLEntitites = function(rawData){
 	var entities = new htmlEntities();
@@ -23,11 +24,24 @@ var getCommonDelimiterForm = function(rawData, delimiter) {
 	return delimiter + ' ';
 }
 
+var normaliseJprsData = function (data) {
+	// Normalise square bracketed keys to use colon delimiter, i.e. [Domain Name] => Domain Name:
+	var output = data.replace(/^\[([ \w]+)\]/gm, '$1:');
+	// Remove empty fields
+	output = output.replace(/^[ \w]+: *$/gm, '');
+	return output;
+}
+
 var parseRawData = function(rawData) {
 	
 	var result = {};	
 	
 	rawData = stripHTMLEntitites(rawData)
+
+	if (rawData.startsWith(JPRS_DATABASE_HEADER)) {
+		rawData = normaliseJprsData(rawData);
+	}
+
 	rawData = rawData.replace(/:\s*\r\n/g, ': ');
 	var lines = rawData.split('\n');
 	var delimiter = getCommonDelimiterForm(rawData, DELIMITER);
