@@ -28,7 +28,7 @@ var parseRawData = function(rawData) {
 	var result = {};	
 	
 	rawData = stripHTMLEntitites(rawData)
-	rawData = rawData.replace(/:\s*\r\n/g, ': ');
+	rawData = rawData.replace(/:\s+\r\n/g, ': ');
 	var lines = rawData.split('\n');
 	var delimiter = getCommonDelimiterForm(rawData, DELIMITER);
 

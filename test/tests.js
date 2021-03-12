@@ -157,7 +157,59 @@ suite('parseRawData', function(){
 		};
 		assert.deepEqual(cleaned, correct)
 	})
-
+	test('google.asia test case', function(){
+		const rawData = dedent(`
+			Domain Name: GOOGLE.ASIA
+			Registry Domain ID: D107700000000022182-AGRS
+			Registrar WHOIS Server:
+			Registrar URL: http://www.markmonitor.com
+			Updated Date: 2020-10-20T09:37:28Z
+			Creation Date: 2007-11-21T20:47:29Z
+			Registry Expiry Date: 2021-11-21T20:47:29Z
+			Registrar Registration Expiration Date:
+			Registrar: MarkMonitor Inc.
+			Registrar IANA ID: 292
+			Registrar Abuse Contact Email: abusecomplaints@markmonitor.com
+			Registrar Abuse Contact Phone: +1.2083895740
+			Reseller:
+			Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited
+			Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
+			Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited
+			Registrant Organization: Google LLC
+			Registrant State/Province: CA
+			Registrant Country: US
+			Name Server: NS3.GOOGLEDOMAINS.COM
+			Name Server: NS1.GOOGLEDOMAINS.COM
+			Name Server: NS2.GOOGLEDOMAINS.COM
+			Name Server: NS4.GOOGLEDOMAINS.COM
+			DNSSEC: unsigned
+			URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+			>>> Last update of WHOIS database: 2021-03-12T06:49:27Z <<<
+			--`)
+		const cleaned = parseRawData(rawData);
+		const correct = {
+			"domainName": "GOOGLE.ASIA",
+  			"registryDomainId": "D107700000000022182-AGRS",
+  			"registrarUrl": "http://www.markmonitor.com",
+  			"updatedDate": "2020-10-20T09:37:28Z",
+  			"creationDate": "2007-11-21T20:47:29Z",
+  			"registryExpiryDate": "2021-11-21T20:47:29Z",
+  			"registrar": "MarkMonitor Inc.",
+  			"registrarIanaId": "292",
+  			"registrarAbuseContactEmail": "abusecomplaints@markmonitor.com",
+  			"registrarAbuseContactPhone": "+1.2083895740",
+  			"domainStatus": "clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited clientTransferProhibited https://icann.org/epp#clientTransferProhibited clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited",
+  			"registrantOrganization": "Google LLC",
+  			"registrantStateProvince": "CA",
+  			"registrantCountry": "US",
+  			"nameServer": "NS3.GOOGLEDOMAINS.COM NS1.GOOGLEDOMAINS.COM NS2.GOOGLEDOMAINS.COM NS4.GOOGLEDOMAINS.COM",
+  			"dnssec": "unsigned",
+  			"urlOfTheIcannWhoisInaccuracyComplaintForm": "https://www.icann.org/wicf/",
+  			"lastUpdateOfWhoisDatabase": "2021-03-12T06:49:27Z <<<"
+		}
+		assert.deepEqual(cleaned, correct);
+	}
+	)
 	test('converts raw data (case with no spaces after delimiters) into JS', function(){
 		const rawData = dedent(`
 			Domain Name:addlvr.com
